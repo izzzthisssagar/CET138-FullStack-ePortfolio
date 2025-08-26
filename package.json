@@ -4,12 +4,12 @@
   "description": "CET138 Full Stack Development ePortfolio by Sagar Thapa",
   "main": "index.html",
   "scripts": {
-    "build": "chmod +x scripts/build.sh && ./scripts/build.sh",
-    "validate": "chmod +x scripts/build.sh && ./scripts/build.sh",
-    "optimize": "echo 'Optimization completed during build process'",
-    "deploy": "chmod +x deploy.sh && ./deploy.sh",
-    "test": "echo 'Running portfolio tests...' && npm run validate",
-    "start": "echo 'Starting local server...' && python -m http.server 8000 || npx serve ."
+    "build": "scripts\\build.bat",
+    "validate": "scripts\\build.bat",
+    "optimize": "echo Optimization completed during build process",
+    "deploy": "deploy.bat",
+    "test": "echo Running portfolio tests... && npm run validate",
+    "start": "echo Starting local server... && python -m http.server 8000 || npx serve ."
   },
   "keywords": [
     "portfolio",
