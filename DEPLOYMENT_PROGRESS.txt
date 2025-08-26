@@ -1,0 +1,23 @@
+🚀 DEPLOYMENT PROGRESS TRACKER
+================================
+
+✅ COMPLETED DEPLOYMENTS:
+1. ✅ Surge.sh: https://cet138-sagar-thapa-portfolio.surge.sh/
+2. ✅ GitHub Pages: https://izzzthisssagar.github.io/CET138-FullStack-ePortfolio/
+
+🔄 IN PROGRESS:
+3. ⏳ Netlify: https://cet138-sagar-thapa.netlify.app/
+4. ⏳ Vercel: https://cet138-fullstack-eportfolio.vercel.app/
+5. ⏳ Firebase: https://cet138-eportfolio.web.app/
+
+📋 CURRENT TASKS:
+- [ ] Netlify: Sign in with GitHub → New site from Git
+- [ ] Vercel: Sign up with GitHub → New Project
+- [ ] Firebase: Create project → Hosting setup
+
+🎯 UPDATE THIS FILE AS YOU COMPLETE EACH STEP!
+
+================================
+Student: Sagar Thapa (BI95SS)
+Date: 26 August 2025
+================================

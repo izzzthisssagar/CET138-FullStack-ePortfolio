@@ -1,0 +1,35 @@
+🚀 QUICK DEPLOYMENT REFERENCE CARD
+===========================================
+
+✅ CURRENT STATUS:
+- Surge.sh: ✅ LIVE https://cet138-sagar-thapa-portfolio.surge.sh/
+- GitHub Pages: ✅ LIVE https://izzzthisssagar.github.io/CET138-FullStack-ePortfolio/
+
+🎯 DEPLOYING NOW (3 browser windows open):
+
+📋 NETLIFY (Window 1):
+→ Sign in with GitHub
+→ "New site from Git" 
+→ Choose "CET138-FullStack-ePortfolio"
+→ Leave settings BLANK → Deploy
+→ Rename to: cet138-sagar-thapa
+→ URL: https://cet138-sagar-thapa.netlify.app/
+
+📋 VERCEL (Window 2): 
+→ Sign up with GitHub
+→ "New Project"
+→ Import "CET138-FullStack-ePortfolio"  
+→ Framework: Other → Deploy
+→ URL: https://cet138-fullstack-eportfolio.vercel.app/
+
+🔥 FIREBASE (Window 3):
+→ "Create a project" 
+→ Name: cet138-eportfolio
+→ Hosting → Get started
+→ Upload files: Select all .html files
+→ URL: https://cet138-eportfolio.web.app/
+
+===========================================
+Start with NETLIFY first - it's the easiest!
+Tell me when each one is complete! 🚀
+===========================================

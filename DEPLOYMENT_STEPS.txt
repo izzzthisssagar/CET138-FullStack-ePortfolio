@@ -1,0 +1,84 @@
+🚀 STEP-BY-STEP DEPLOYMENT GUIDE - ALL PLATFORMS
+================================================================
+
+✅ ALREADY LIVE:
+   Website #1: https://cet138-sagar-thapa-portfolio.surge.sh/
+   Website #2: https://izzzthisssagar.github.io/CET138-FullStack-ePortfolio/
+
+🚀 DEPLOY NOW (3 browser tabs opened):
+
+📋 NETLIFY DEPLOYMENT (Website #3):
+==================================
+1. Go to NETLIFY TAB in browser
+2. Click "Sign up" or "Log in" → Choose "GitHub"
+3. Authorize Netlify to access your GitHub
+4. Click "New site from Git"
+5. Click "GitHub" 
+6. Choose repository: "CET138-FullStack-ePortfolio"
+7. Deploy settings:
+   - Build command: (leave blank)
+   - Publish directory: (leave blank)
+8. Click "Deploy site"
+9. Wait 1-2 minutes for deployment
+10. Click "Site settings" → "Change site name"
+11. New name: "cet138-sagar-thapa"
+12. ✅ YOUR URL: https://cet138-sagar-thapa.netlify.app/
+
+📋 VERCEL DEPLOYMENT (Website #4):
+==================================
+1. Go to VERCEL TAB in browser
+2. Click "Sign Up" → Choose "Continue with GitHub"
+3. Authorize Vercel to access your GitHub
+4. Click "New Project"
+5. Find and click "Import" next to "CET138-FullStack-ePortfolio"
+6. Configure Project:
+   - Project Name: cet138-fullstack-eportfolio
+   - Framework Preset: Other
+   - Root Directory: ./ (default)
+   - Build Command: (leave blank)
+   - Output Directory: (leave blank)
+7. Click "Deploy"
+8. Wait 1-2 minutes for deployment
+9. ✅ YOUR URL: https://cet138-fullstack-eportfolio.vercel.app/
+
+🔥 FIREBASE DEPLOYMENT (Website #5):
+====================================
+1. Go to FIREBASE CONSOLE TAB in browser
+2. Click "Create a project" or "Add project"
+3. Project name: "cet138-eportfolio"
+4. Disable Google Analytics (not needed)
+5. Click "Create project"
+6. Wait for project creation
+7. Click "Continue"
+8. In left sidebar, click "Hosting"
+9. Click "Get started"
+10. Follow these steps:
+    - Step 1: Click "Next" (we already have Firebase CLI)
+    - Step 2: Click "Next" (we'll upload manually)
+    - Step 3: We'll upload files manually
+11. Click "Continue to console"
+12. In Hosting section, click "Upload files"
+13. Select all your HTML files (index.html, fullstack.html, etc.)
+14. Click "Deploy"
+15. ✅ YOUR URL: https://cet138-eportfolio.web.app/
+
+================================================================
+
+⏱️ ESTIMATED TIME:
+- Netlify: 3-5 minutes
+- Vercel: 3-5 minutes  
+- Firebase: 5-8 minutes
+- Total: 15-20 minutes
+
+🎯 FINAL RESULT - 5 LIVE WEBSITES:
+- https://cet138-sagar-thapa-portfolio.surge.sh/
+- https://izzzthisssagar.github.io/CET138-FullStack-ePortfolio/
+- https://cet138-sagar-thapa.netlify.app/
+- https://cet138-fullstack-eportfolio.vercel.app/
+- https://cet138-eportfolio.web.app/
+
+================================================================
+Student: Sagar Thapa (BI95SS)
+CET138 Full Stack Development ePortfolio
+University of Sunderland
+================================================================
