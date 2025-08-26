@@ -690,6 +690,163 @@
 
     <div class="container">
         <main id="main-content">
+            <!-- ======= PASTE THIS WHOLE SECTION RIGHT HERE ======= -->
+<!-- JavaScript Concepts Explanation Section -->
+<section class="concepts-section py-5" aria-labelledby="concepts-heading">
+    <div class="container">
+        <h2 id="concepts-heading" class="text-center mb-5">JavaScript Concepts Demonstrated in This Task Tracker</h2>
+        <p class="lead text-center mb-5">This interactive application showcases several core JavaScript and modern Web API concepts. Below is an explanation of the key features implemented.</p>
+
+        <div class="row g-4">
+            <!-- Concept 1 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="concept-card h-100 p-4">
+                    <div class="concept-icon mb-3">
+                        <i class="fas fa-code fa-2x text-primary"></i>
+                    </div>
+                    <h3 class="h5">1. DOM Manipulation</h3>
+                    <p>The Document Object Model (DOM) is dynamically manipulated to create, update, and delete task elements without refreshing the page. The <code>createTaskElement()</code> function uses JavaScript to generate the HTML structure for each task card.</p>
+                    <div class="code-snippet">
+                        <pre><code>// Example: Creating an element
+const taskDiv = document.createElement('div');
+taskDiv.className = 'task-item';
+taskDiv.innerHTML = `...template...`;
+taskList.appendChild(taskDiv);</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Concept 2 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="concept-card h-100 p-4">
+                    <div class="concept-icon mb-3">
+                        <i class="fas fa-mouse-pointer fa-2x text-primary"></i>
+                    </div>
+                    <h3 class="h5">2. Event Handling</h3>
+                    <p>Event listeners are used to handle user interactions. The form submission is captured, and clicks on the "Delete" and "Mark Complete" buttons are handled to trigger the appropriate functions.</p>
+                    <div class="code-snippet">
+                        <pre><code>// Example: Form submission event
+taskForm.addEventListener('submit', function(e) {
+    e.preventDefault(); // Prevents page reload
+    // ...logic to handle the form data
+});</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Concept 3 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="concept-card h-100 p-4">
+                    <div class="concept-icon mb-3">
+                        <i class="fas fa-database fa-2x text-primary"></i>
+                    </div>
+                    <h3 class="h5">3. Data Persistence (localStorage)</h3>
+                    <p>The Web Storage API (<code>localStorage</code>) is used to persist the task data in the user's browser. This allows the tasks to remain available even after the browser is closed and reopened.</p>
+                    <div class="code-snippet">
+                        <pre><code>// Saving data to localStorage
+localStorage.setItem('tasks', JSON.stringify(tasks));
+
+// Retrieving data from localStorage
+const tasks = JSON.parse(localStorage.getItem('tasks')) || [];</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Concept 4 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="concept-card h-100 p-4">
+                    <div class="concept-icon mb-3">
+                        <i class="fab fa-js-square fa-2x text-primary"></i>
+                    </div>
+                    <h3 class="h5">4. Modern ES6+ Syntax</h3>
+                    <p>This project utilizes modern JavaScript features including arrow functions, template literals, <code>const</code>/<code>let</code>, and array methods like <code>forEach()</code> and <code>findIndex()</code>.</p>
+                    <div class="code-snippet">
+                        <pre><code>// Example: Arrow function & template literal
+const showNotification = (message, type) => {
+    notification.innerHTML = `<i class="fas...">${message}</i>`;
+};</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Concept 5 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="concept-card h-100 p-4">
+                    <div class="concept-icon mb-3">
+                        <i class="fas fa-check-circle fa-2x text-primary"></i>
+                    </div>
+                    <h3 class="h5">5. Form Validation</h3>
+                    <p>Client-side form validation provides immediate user feedback. The Constraint Validation API is used to check if the required "Task Title" field is filled out before submission.</p>
+                    <div class="code-snippet">
+                        <pre><code>// Example: Input validation check
+if (!taskTitle.validity.valid) {
+    showTitleError(); // Show custom error message
+    taskTitle.focus(); // Focus on the input field
+    return; // Stop form submission
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Concept 6 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="concept-card h-100 p-4">
+                    <div class="concept-icon mb-3">
+                        <i class="fas fa-universal-access fa-2x text-primary"></i>
+                    </div>
+                    <h3 class="h5">6. Accessibility (ARIA)</h3>
+                    <p>Accessibility features have been implemented, including ARIA attributes (<code>aria-labelledby</code>, <code>aria-describedby</code>) and a "Skip to main content" link to improve the experience for users of assistive technologies.</p>
+                    <div class="code-snippet">
+                        <pre><code>&lt;!-- Example: ARIA attribute --&gt;
+&lt;div id="titleError" class="error-message" role="alert"&gt;&lt;/div&gt;
+&lt;input aria-describedby="titleError"&gt;</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Add these new styles to your existing <style> tag */
+    .concepts-section {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        border-radius: 20px;
+        margin: 3rem auto;
+    }
+    .concept-card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--gray-light);
+        transition: all 0.3s ease;
+    }
+    .concept-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-lg);
+    }
+    .concept-icon {
+        color: var(--primary);
+    }
+    .code-snippet {
+        background: var(--darker);
+        color: #f8f9fa;
+        padding: 1rem;
+        border-radius: 8px;
+        font-size: 0.85rem;
+        margin-top: 1rem;
+        overflow-x: auto;
+    }
+    .code-snippet pre {
+        margin: 0;
+    }
+    .code-snippet code {
+        font-family: 'Courier New', monospace;
+        white-space: pre-wrap;
+    }
+</style>
+
+
             <!-- Task Form -->
             <section class="task-form" aria-labelledby="form-heading">
                 <h2 id="form-heading">Add New Task</h2>

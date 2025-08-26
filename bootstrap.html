@@ -761,6 +761,145 @@
                     </div>
                 </div>
             </div>
+           
+<!-- Bootstrap Concepts Explanation Section -->
+<section class="concepts-section py-5" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 20px; margin: 3rem auto;">
+    <div class="container">
+        <h2 class="text-center mb-5">Bootstrap Concepts Demonstrated in This Dashboard</h2>
+        <p class="lead text-center mb-5">This interactive dashboard is built entirely with Bootstrap. Below is a breakdown of the key framework features and components used.</p>
+
+        <div class="row g-4">
+            <!-- Concept 1 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="concept-icon mb-3 text-center">
+                            <i class="bi bi-grid-3x3-gap display-6 text-primary"></i>
+                        </div>
+                        <h3 class="h5">1. Responsive Grid System</h3>
+                        <p>Bootstrap's 12-column grid system allows for creating flexible layouts that work on any device. The classes <code>.row</code> and <code>.col-md-*</code> are used to control the layout.</p>
+                        <div class="code-snippet bg-dark text-light p-3 rounded">
+                            <pre class="mb-0"><code>&lt;div class="row"&gt;
+  &lt;div class="col-md-3"&gt;Sidebar&lt;/div&gt;
+  &lt;div class="col-md-9"&gt;Main Content&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                        </div>
+                        <p class="mt-2 small"><strong>In this demo:</strong> The main layout uses <code>.col-md-3</code> for the menu and <code>.col-md-9</code> for the content area.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Concept 2 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="concept-icon mb-3 text-center">
+                            <i class="bi bi-menu-button-wide display-6 text-primary"></i>
+                        </div>
+                        <h3 class="h5">2. Components: Navigation & Tabs</h3>
+                        <p>Bootstrap provides pre-styled components. The dashboard uses a <code>.list-group</code> for the menu and Bootstrap's JavaScript to handle the tabbed content.</p>
+                        <div class="code-snippet bg-dark text-light p-3 rounded">
+                            <pre class="mb-0"><code>&lt;div class="list-group"&gt;
+  &lt;a href="#tab1" class="list-group-item active" data-bs-toggle="list"&gt;
+    Tab 1
+  &lt;/a&gt;
+&lt;/div&gt;
+&lt;div class="tab-content"&gt;
+  &lt;div class="tab-pane fade show active" id="tab1"&gt;...&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Concept 3 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="concept-icon mb-3 text-center">
+                            <i class="bi bi-card-heading display-6 text-primary"></i>
+                        </div>
+                        <h3 class="h5">3. Components: Cards</h3>
+                        <p>Cards are versatile content containers. They are used here for the metric boxes, quick stats, and the main content areas.</p>
+                        <div class="code-snippet bg-dark text-light p-3 rounded">
+                            <pre class="mb-0"><code>&lt;div class="card"&gt;
+  &lt;div class="card-body"&gt;
+    &lt;h5 class="card-title"&gt;Title&lt;/h5&gt;
+    &lt;p class="card-text"&gt;Content&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Concept 4 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="concept-icon mb-3 text-center">
+                            <i class="bi bi-table display-6 text-primary"></i>
+                        </div>
+                        <h3 class="h5">4. Components: Tables</h3>
+                        <p>Bootstrap styles HTML tables to be clean and responsive. The <code>.table</code> class is used in the "Recent Activity" section.</p>
+                        <div class="code-snippet bg-dark text-light p-3 rounded">
+                            <pre class="mb-0"><code>&lt;table class="table table-hover"&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Header&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Data&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Concept 5 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="concept-icon mb-3 text-center">
+                            <i class="bi bi-wrench display-6 text-primary"></i>
+                        </div>
+                        <h3 class="h5">5. Utility Classes</h3>
+                        <p>Bootstrap includes dozens of utility classes for quick styling. This demo uses spacing classes (<code>.mb-4</code>, <code>.p-3</code>), color classes (<code>.text-white</code>, <code>.bg-primary</code>), and flexbox classes (<code>.d-flex</code>).</p>
+                        <div class="code-snippet bg-dark text-light p-3 rounded">
+                            <pre class="mb-0"><code>&lt;div class="mb-4 p-3 bg-primary text-white"&gt;
+  &lt;div class="d-flex justify-content-between"&gt;
+    Content
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Concept 6 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="concept-icon mb-3 text-center">
+                            <i class="bi bi-phone display-6 text-primary"></i>
+                        </div>
+                        <h3 class="h5">6. Responsive Design</h3>
+                        <p>The entire dashboard is responsive. The grid stack on mobile devices, and components adjust their layout. This is achieved automatically through Bootstrap's mobile-first CSS.</p>
+                        <div class="code-snippet bg-dark text-light p-3 rounded">
+                            <pre class="mb-0"><code>&lt;!-- No extra code needed! --&gt;
+&lt;!-- Bootstrap's grid is responsive by default --&gt;</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
             
             <div class="demo-container">
                 <h4>Example: Bootstrap Dashboard</h4>

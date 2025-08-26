@@ -279,6 +279,8 @@
             cursor: pointer;
             color: var(--text-dark);
             border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
         }
 
         .layer:hover {
@@ -289,6 +291,21 @@
         .layer.active {
             border: 3px solid var(--primary);
             background: rgba(67, 97, 238, 0.05);
+        }
+
+        .layer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 0;
+            background: var(--primary);
+            transition: height 0.3s ease;
+        }
+
+        .layer.active::before {
+            height: 100%;
         }
 
         /* Layer header with icon */
@@ -331,6 +348,12 @@
             padding-top: 1rem;
             border-top: 1px solid rgba(0, 0, 0, 0.1);
             color: var(--text-dark);
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .layer-content.active {
@@ -690,6 +713,40 @@
             transform: translateY(-3px);
         }
 
+        /* Quick navigation sidebar */
+        .quick-nav {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: white;
+            border-radius: 10px;
+            padding: 1rem;
+            box-shadow: var(--shadow-md);
+            z-index: 900;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .quick-nav-item {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--text-light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quick-nav-item.active {
+            background: var(--primary);
+            transform: scale(1.3);
+        }
+
+        .quick-nav-item:hover {
+            background: var(--primary-dark);
+        }
+
         /* Responsive design */
         @media (max-width: 768px) {
             body {
@@ -743,12 +800,24 @@
                 left: 50%;
                 transform: translateX(-50%);
             }
+
+            .quick-nav {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
     <!-- Skip link -->
     <a href="#main-content" class="skip-link" style="position: absolute; top: -40px; left: 0; background: var(--primary); color: white; padding: 8px; z-index: 10000; transition: top 0.3s;">Skip to main content</a>
+    
+    <!-- Quick Navigation Sidebar -->
+    <div class="quick-nav">
+        <div class="quick-nav-item active" data-section="architecture"></div>
+        <div class="quick-nav-item" data-section="stacks"></div>
+        <div class="quick-nav-item" data-section="career"></div>
+        <div class="quick-nav-item" data-section="core-tech"></div>
+    </div>
     
     <!-- Navigation Bar -->
     <nav class="navbar">
@@ -1406,6 +1475,30 @@
                     
                     // Update breadcrumb navigation
                     updateBreadcrumb(sectionName);
+                    
+                    // Update quick navigation
+                    updateQuickNav(sectionName);
+                });
+            });
+
+            // Set up quick navigation
+            const quickNavItems = document.querySelectorAll('.quick-nav-item');
+            quickNavItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const sectionName = this.getAttribute('data-section');
+                    showSection(sectionName);
+                    
+                    // Update breadcrumb navigation
+                    updateBreadcrumb(sectionName);
+                    
+                    // Update main navigation buttons
+                    document.querySelectorAll('.nav-button').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    document.querySelector(`.nav-button[data-section="${sectionName}"]`).classList.add('active');
+                    
+                    // Update quick navigation
+                    updateQuickNav(sectionName);
                 });
             });
 
@@ -1497,6 +1590,27 @@
             document.querySelector('.skip-link').addEventListener('blur', function() {
                 this.style.top = '-40px';
             });
+            
+            // Observer for quick navigation updates on scroll
+            const sections = document.querySelectorAll('.section');
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.5
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const sectionId = entry.target.id;
+                        updateQuickNav(sectionId);
+                    }
+                });
+            }, observerOptions);
+            
+            sections.forEach(section => {
+                observer.observe(section);
+            });
         });
 
         /**
@@ -1519,7 +1633,20 @@
             document.querySelector(`.nav-button[data-section="${sectionName}"]`).classList.add('active');
             
             // Scroll to the top of the section
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            document.getElementById(sectionName).scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        /**
+         * Updates the quick navigation dots based on current section
+         * @param {string} sectionName - The ID of the current section
+         */
+        function updateQuickNav(sectionName) {
+            document.querySelectorAll('.quick-nav-item').forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('data-section') === sectionName) {
+                    item.classList.add('active');
+                }
+            });
         }
 
         /**
@@ -1842,7 +1969,7 @@ axios.get('https://jsonplaceholder.typicode.com/posts/1')
         &lt;button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
                 data-bs-target="#navbarNav" aria-controls="navbarNav" 
                 aria-expanded="false" aria-label="Toggle navigation"&gt;
-            &lt;span class="navbar-tuggler-icon"&gt;&lt;/span&gt;
+            &lt;span class="navbar-toggler-icon"&gt;&lt;/span&gt;
         &lt;/button&gt;
         &lt;div class="collapse navbar-collapse" id="navbarNav"&gt;
             &lt;ul class="navbar-nav"&gt;

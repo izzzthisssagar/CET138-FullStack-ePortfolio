@@ -676,6 +676,7 @@
                     <li><a href="#intro">Introduction to HTML</a></li>
                     <li><a href="#basic-structure">Basic Document Structure</a></li>
                     <li><a href="#text-elements">Text Elements & Formatting</a></li>
+                    <li><a href="#html-entities">HTML Entities</a></li>
                     <li><a href="#links-images">Links & Images</a></li>
                     <li><a href="#lists">Lists</a></li>
                     <li><a href="#tables">Tables</a></li>
@@ -856,6 +857,128 @@
                                 and this is <del>deleted</del>.
                             </p>
                         </div>
+                    </div>
+                </section>
+                
+                <section id="html-entities" class="section">
+                    <h2>HTML Entities</h2>
+                    <p>HTML entities are used to display reserved characters or characters that don't appear on a standard keyboard. They begin with an ampersand (&) and end with a semicolon (;).</p>
+                    
+                    <h3>Common HTML Entities</h3>
+                    <p>Here are some frequently used HTML entities:</p>
+                    
+                    <table>
+                        <tr>
+                            <th>Character</th>
+                            <th>Entity Name</th>
+                            <th>Entity Number</th>
+                            <th>Description</th>
+                        </tr>
+                        <tr>
+                            <td>&lt;</td>
+                            <td>&amp;lt;</td>
+                            <td>&amp;#60;</td>
+                            <td>Less than sign</td>
+                        </tr>
+                        <tr>
+                            <td>&gt;</td>
+                            <td>&amp;gt;</td>
+                            <td>&amp;#62;</td>
+                            <td>Greater than sign</td>
+                        </tr>
+                        <tr>
+                            <td>&amp;</td>
+                            <td>&amp;amp;</td>
+                            <td>&amp;#38;</td>
+                            <td>Ampersand</td>
+                        </tr>
+                        <tr>
+                            <td>"</td>
+                            <td>&amp;quot;</td>
+                            <td>&amp;#34;</td>
+                            <td>Double quotation mark</td>
+                        </tr>
+                        <tr>
+                            <td>'</td>
+                            <td>&amp;apos;</td>
+                            <td>&amp;#39;</td>
+                            <td>Single quotation mark</td>
+                        </tr>
+                        <tr>
+                            <td>&copy;</td>
+                            <td>&amp;copy;</td>
+                            <td>&amp;#169;</td>
+                            <td>Copyright symbol</td>
+                        </tr>
+                        <tr>
+                            <td>&reg;</td>
+                            <td>&amp;reg;</td>
+                            <td>&amp;#174;</td>
+                            <td>Registered trademark</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>&amp;nbsp;</td>
+                            <td>&amp;#160;</td>
+                            <td>Non-breaking space</td>
+                        </tr>
+                        <tr>
+                            <td>&euro;</td>
+                            <td>&amp;euro;</td>
+                            <td>&amp;#8364;</td>
+                            <td>Euro currency symbol</td>
+                        </tr>
+                    </table>
+                    
+                    <h3>Using HTML Entities</h3>
+                    <p>Entities are essential when you need to display characters that have special meaning in HTML, like angle brackets.</p>
+                    
+                    <div class="example">
+                        <code>&lt;p&gt;To display an HTML tag, use entities: &amp;lt;div&amp;gt;&lt;/p&gt;
+&lt;p&gt;Copyright &amp;copy; 2023 My Company&lt;/p&gt;
+&lt;p&gt;Price: 25&amp;euro;&lt;/p&gt;
+&lt;p&gt;This&amp;nbsp;text&amp;nbsp;has&amp;nbsp;non-breaking&amp;nbsp;spaces&lt;/p&gt;</code>
+                    </div>
+                    
+                    <button class="show-output-btn" onclick="showOutput('entities-output')">View Output</button>
+                    
+                    <div id="entities-output" class="example-output" style="display: none;">
+                        <h4>Output:</h4>
+                        <p>To display an HTML tag, use entities: &lt;div&gt;</p>
+                        <p>Copyright &copy; 2023 My Company</p>
+                        <p>Price: 25&euro;</p>
+                        <p>This&nbsp;text&nbsp;has&nbsp;non-breaking&nbsp;spaces</p>
+                    </div>
+                    
+                    <div class="practice-area">
+                        <h3>Practice Exercise</h3>
+                        <p>Create a paragraph that includes at least 5 different HTML entities.</p>
+                        <div class="example">
+                            <code>&lt;p&gt;
+    Display the less than sign: &amp;lt; &lt;br&gt;
+    Display the greater than sign: &amp;gt; &lt;br&gt;
+    Display an ampersand: &amp;amp; &lt;br&gt;
+    Display the copyright symbol: &amp;copy; &lt;br&gt;
+    Display the euro symbol: &amp;euro;
+&lt;/p&gt;</code>
+                        </div>
+                        
+                        <button class="show-output-btn" onclick="showOutput('entities-practice-output')">View Output</button>
+                        
+                        <div id="entities-practice-output" class="example-output" style="display: none;">
+                            <h4>Output:</h4>
+                            <p>
+                                Display the less than sign: &lt; <br>
+                                Display the greater than sign: &gt; <br>
+                                Display an ampersand: &amp; <br>
+                                Display the copyright symbol: &copy; <br>
+                                Display the euro symbol: &euro;
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="tip">
+                        <p><strong>Tip:</strong> You can find a complete list of HTML entities on the <a href="https://www.w3schools.com/html/html_entities.asp" target="_blank">W3Schools HTML Entities Reference</a>.</p>
                     </div>
                 </section>
                 
@@ -1198,7 +1321,7 @@
 &lt;/form&gt;</code>
                     </div>
                     
-                    <button class="show-output-btn" onclick="showOutput('form-output')">View Output</button>
+                    <button class="show output-btn" onclick="showOutput('form-output')">View Output</button>
                     
                     <div id="form-output" class="example-output" style="display: none;">
                         <h4>Output:</h4>

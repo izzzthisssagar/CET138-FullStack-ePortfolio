@@ -1,0 +1,30 @@
+CET138 FULL STACK DEVELOPMENT ePORTFOLIO
+SAGAR THAPA (BI95SS) - UNIVERSITY OF SUNDERLAND
+==============================================
+
+ALL 5 LIVE WEBSITE URLS:
+
+1. GitHub Pages (Primary):
+   https://izzzthisssagar.github.io/CET138-FullStack-ePortfolio/
+
+2. Surge.sh:
+   https://cet138-sagar-thapa-portfolio.surge.sh/
+
+3. Firebase:
+   https://cet138-eportfolio-sagar-thapa.web.app/
+
+4. Vercel:
+   https://cet-138-full-stack-e-portfolio.vercel.app/
+
+5. Netlify:
+   https://aesthetic-cat-a534f8.netlify.app/
+
+SOURCE CODE REPOSITORY:
+   https://github.com/izzzthisssagar/CET138-FullStack-ePortfolio
+
+==============================================
+FOR ASSIGNMENT SUBMISSION:
+Primary URL: https://izzzthisssagar.github.io/CET138-FullStack-ePortfolio/
+Backup URLs: All 5 URLs above
+Repository: https://github.com/izzzthisssagar/CET138-FullStack-ePortfolio
+==============================================
