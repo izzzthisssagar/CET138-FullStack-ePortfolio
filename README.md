@@ -13,7 +13,7 @@
 ### Primary Deployments
 - **GitHub Pages:** [Visit Site](https://izzzthisssagar.github.io/CET138-FullStack-ePortfolio/)
 - **Netlify:** [Visit Site](https://cet138-sagar-thapa.netlify.app/)
-- **Vercel:** [Visit Site](https://cet138-fullstack-eportfolio.vercel.app/)
+- **Vercel:** [Visit Site](https://cet-138-full-stack-e-portfolio.vercel.app/)
 
 ### Backup Deployments
 - **Surge.sh:** [Visit Site](https://cet138-sagar-thapa-portfolio.surge.sh/)
