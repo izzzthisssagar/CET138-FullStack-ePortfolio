@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CET138 Full Stack Development ePortfolio - Sagar Thapa</title>
+    <meta name="description" content="Sagar Thapa's Full Stack Development ePortfolio for University of Sunderland CET138 module">
+    <meta name="author" content="Sagar Thapa">
+    <meta name="student-id" content="BI95SS">
+    <meta name="university" content="University of Sunderland">
+    <meta name="college" content="ISMT College, Butwal">
+    
+    <!-- External CSS Libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --secondary: #7209b7;
+            --accent: #f72585;
+            --accent-dark: #e91e63;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --darker: #121416;
+            --success: #4cc9f0;
+            --warning: #f9c74f;
+            --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            --gradient-reverse: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            --card-gradient: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            --text-dark: #2d3748;
+            --text-light: #718096;
+            --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 6px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 15px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        /* Base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--light);
+            min-height: 100vh;
+            padding-bottom: 2rem;
+            scroll-behavior: smooth;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(16px);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 0.5rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-left: 1.5rem;
+            position: relative;
+        }
+
+        .nav-link {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .nav-link.active {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            color: var(--dark);
+            font-size: 1.5rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            color: white;
+            padding: 5rem 1rem;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+            background: var(--gradient);
+            border-radius: 0 0 20px 20px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .author {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-top: 2rem;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .university-info {
+            background: rgba(255, 255, 255, 0.2);
+            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(16px);
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            margin-top: 1.5rem;
+            display: inline-block;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            animation: fadeInUp 1s ease-out 0.9s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 2rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-md);
+            animation: fadeInUp 1s ease-out 1.2s both;
+        }
+
+        .cta-button:hover {
+            background: var(--light);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Portfolio Grid */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .portfolio-card {
+            background: var(--card-gradient);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portfolio-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient);
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            margin-right: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .icon-fullstack { background: linear-gradient(45deg, var(--primary), var(--secondary)); }
+        .icon-html { background: linear-gradient(45deg, #E34F26, #F16529); }
+        .icon-css { background: linear-gradient(45deg, #1572B6, #33A9DC); }
+        .icon-bootstrap { background: linear-gradient(45deg, #7952B3, #563D7C); }
+        .icon-javascript { background: linear-gradient(45deg, #F7DF1E, #F0DB4F); color: #323330; }
+
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .card-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-content p {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            flex-grow: 1;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .tech-tag {
+            background: rgba(67, 97, 238, 0.1);
+            border: 1px solid rgba(67, 97, 238, 0.2);
+            border-radius: 20px;
+            padding: 0.3rem 0.8rem;
+            font-size: 0.8rem;
+            color: var(--primary);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .tech-tag:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .demo-link {
+            display: inline-flex;
+            align-items: center;
+            background: var(--gradient);
+            color: white;
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: auto;
+            width: fit-content;
+        }
+
+        .demo-link:hover {
+            background: var(--gradient-reverse);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .demo-link i {
+            margin-left: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .demo-link:hover i {
+            transform: translateX(3px);
+        }
+
+        /* Assignment Info */
+        .assignment-info {
+            background: white;
+            border-radius: 15px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .assignment-info h2 {
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .grading-criteria {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .criteria-item {
+            background: #f8f9fa;
+            padding: 1.2rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            transition: transform 0.3s ease;
+        }
+
+        .criteria-item:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .criteria-title {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .criteria-title i {
+            margin-right: 0.5rem;
+            color: var(--primary);
+        }
+
+        .learning-outcomes {
+            margin: 2rem 0;
+            background: var(--light);
+            padding: 1.8rem;
+            border-radius: 10px;
+            color: var(--dark);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .learning-outcomes h3 {
+            margin-bottom: 1rem;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+        }
+
+        .learning-outcomes h3 i {
+            margin-right: 0.5rem;
+        }
+
+        .learning-outcomes ul {
+            list-style-position: inside;
+            columns: 2;
+        }
+
+        .learning-outcomes li {
+            margin-bottom: 0.5rem;
+            padding-left: 0.5rem;
+        }
+
+        /* Footer - UPDATED TO FULL WIDTH */
+        footer {
+            text-align: center;
+            color: white;
+            padding: 3rem 0;
+            margin-top: auto; /* Push footer to bottom */
+            background: var(--gradient);
+            width: 100%; /* Full width */
+            border-radius: 0; /* Remove rounded corners */
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .footer-section {
+            padding: 0 1rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.2rem;
+            color: white;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: white;
+        }
+
+        .footer-section p {
+            margin-bottom: 0.8rem;
+            line-height: 1.6;
+        }
+
+        .footer-nav {
+            margin-top: 1.5rem;
+        }
+
+        .footer-nav-list {
+            list-style: none;
+        }
+
+        .footer-nav-item {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-nav-link {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-nav-link:hover {
+            color: white;
+        }
+
+        .footer-nav-link i {
+            margin-right: 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: white;
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .footer-bottom p {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .subtitle { font-size: 1.2rem; }
+            .container { padding: 0 1rem; }
+            .portfolio-grid { grid-template-columns: 1fr; }
+            .card-header { flex-direction: column; align-items: flex-start; }
+            .card-icon { margin-bottom: 1rem; }
+            .learning-outcomes ul { columns: 1; }
+            .footer-content { grid-template-columns: 1fr; text-align: center; }
+            .footer-section h3::after { left: 50%; transform: translateX(-50%); }
+            
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: white;
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: var(--shadow-md);
+                padding: 2rem 0;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-item {
+                margin: 1.5rem 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar" aria-label="Main navigation">
+        <div class="nav-container">
+            <a href="index.html" class="logo"><i class="fas fa-laptop-code" aria-hidden="true"></i> CET138 Portfolio</a>
+            
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link active" aria-current="page"><i class="fas fa-home" aria-hidden="true"></i> Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="fullstack.html" class="nav-link"><i class="fas fa-layer-group" aria-hidden="true"></i> Full Stack</a>
+                </li>
+                <li class="nav-item">
+                    <a href="html.html" class="nav-link"><i class="fab fa-html5" aria-hidden="true"></i> HTML</a>
+                </li>
+                <li class="nav-item">
+                    <a href="css.html" class="nav-link"><i class="fab fa-css3-alt" aria-hidden="true"></i> CSS</a>
+                </li>
+                <li class="nav-item">
+                    <a href="javascript.html" class="nav-link"><i class="fab fa-js-square" aria-hidden="true"></i> JavaScript</a>
+                </li>
+                <li class="nav-item">
+                    <a href="bootstrap.html" class="nav-link"><i class="fab fa-bootstrap" aria-hidden="true"></i> Bootstrap</a>
+                </li>
+            </ul>
+            
+            <div class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+                <i class="fas fa-bars" aria-hidden="true"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero section -->
+    <header class="hero">
+        <div class="container hero-content">
+            <h1>CET138 Full Stack Development</h1>
+            <p class="subtitle">Professional ePortfolio Assignment</p>
+            <a href="#main-content" class="cta-button">Explore Portfolio <i class="fas fa-arrow-down" aria-hidden="true"></i></a>
+            <div class="author">
+                <p>Sagar Thapa | Student ID: BI95SS</p>
+                <div class="university-info">
+                    <p>University of Sunderland - ISMT College, Butwal, Nepal</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Main content area -->
+        <main id="main-content">
+            <!-- Assignment information section -->
+            <div class="assignment-info">
+                <h2><i class="fas fa-tasks" aria-hidden="true"></i> Assignment Overview</h2>
+                <p>This ePortfolio demonstrates comprehensive understanding of full stack development technologies and practices. Each section includes theoretical knowledge, practical demonstrations, and working code examples hosted on university webspace. The portfolio showcases my ability to design, develop, and deploy modern web applications using industry-standard technologies and best practices.</p>
+
+                <!-- Learning outcomes section -->
+                <div class="learning-outcomes">
+                    <h3><i class="fas fa-graduation-cap" aria-hidden="true"></i> Module Learning Outcomes</h3>
+                    <ul>
+                        <li>Demonstrate understanding of technologies used to develop dynamic web applications</li>
+                        <li>Design and code both static and dynamic web applications</li>
+                        <li>Implement modern web development practices including responsive design and accessibility</li>
+                        <li>Evaluate and select appropriate technologies for different web development scenarios</li>
+                        <li>Deploy and maintain web applications on hosting platforms</li>
+                    </ul>
+                </div>
+
+                <!-- Grading criteria section -->
+                <div class="grading-criteria">
+                    <div class="criteria-item">
+                        <div class="criteria-title"><i class="fas fa-brain" aria-hidden="true"></i> Understanding (20%)</div>
+                        <p>Deep comprehension of concepts and technologies with thorough evidence</p>
+                    </div>
+                    <div class="criteria-item">
+                        <div class="criteria-title"><i class="fas fa-code" aria-hidden="true"></i> Implementation (20%)</div>
+                        <p>Working demonstrations with clean, documented, functional code</p>
+                    </div>
+                    <div class="criteria-item">
+                        <div class="criteria-title"><i class="fas fa-star" aria-hidden="true"></i> Best Practices (20%)</div>
+                        <p>Modern standards, accessibility, performance, and responsive design</p>
+                    </div>
+                    <div class="criteria-item">
+                        <div class="criteria-title"><i class="fas fa-briefcase" aria-hidden="true"></i> Professional Quality (20%)</div>
+                        <p>Production-ready examples with comprehensive documentation</p>
+                    </div>
+                    <div class="criteria-item">
+                        <div class="criteria-title"><i class="fas fa-check-circle" aria-hidden="true"></i> Completeness (20%)</div>
+                        <p>All required sections completed to a high standard with appropriate depth</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Portfolio grid with technology cards -->
+            <div class="portfolio-grid">
+                <!-- Full Stack Development Card -->
+                <article class="portfolio-card" id="fullstack">
+                    <div class="card-header">
+                        <div class="card-icon icon-fullstack" aria-hidden="true">FS</div>
+                        <h2 class="card-title">What is Full Stack Development?</h2>
+                    </div>
+                    <div class="card-content">
+                        <p>Full stack development involves working with both front-end and back-end technologies to create complete web applications. This section explores the architecture of modern web applications, the various technology stacks (MERN, MEAN, LAMP), and the role of a full stack developer in today's industry.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Architecture</span>
+                            <span class="tech-tag">MERN Stack</span>
+                            <span class="tech-tag">MEAN Stack</span>
+                            <span class="tech-tag">RESTful APIs</span>
+                            <span class="tech-tag">DevOps</span>
+                            <span class="tech-tag">Databases</span>
+                        </div>
+                        <a href="fullstack.html" class="demo-link">View Full Stack Page <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+                    </div>
+                </article>
+
+                <!-- HTML5 Card -->
+                <article class="portfolio-card" id="html">
+                    <div class="card-header">
+                        <div class="card-icon icon-html" aria-hidden="true">5</div>
+                        <h2 class="card-title">HTML5 Semantic Structure</h2>
+                    </div>
+                    <div class="card-content">
+                        <p>Modern HTML5 provides semantic elements that improve accessibility, SEO, and code maintainability. This section demonstrates proper use of semantic tags like &lt;header&gt;, &lt;nav&gt;, &lt;main&gt;, &lt;section&gt;, &lt;article&gt;, and &lt;footer&gt; with examples following WCAG 2.2 guidelines.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">HTML5</span>
+                            <span class="tech-tag">Semantic Elements</span>
+                            <span class="tech-tag">ARIA</span>
+                            <span class="tech-tag">WCAG 2.2</span>
+                            <span class="tech-tag">Form Validation</span>
+                            <span class="tech-tag">Microdata</span>
+                        </div>
+                        <a href="html.html" class="demo-link">View HTML Page <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+                    </div>
+                </article>
+
+                <!-- CSS Card -->
+                <article class="portfolio-card" id="css">
+                    <div class="card-header">
+                        <div class="card-icon icon-css" aria-hidden="true">CSS</div>
+                        <h2 class="card-title">Modern CSS Layouts</h2>
+                    </div>
+                    <div class="card-content">
+                        <p>CSS has evolved with powerful layout systems like Flexbox and Grid, enabling complex responsive designs. This section showcases advanced CSS techniques including custom properties, animations, transitions, and responsive design patterns with mobile-first development approach.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">CSS Grid</span>
+                            <span class="tech-tag">Flexbox</span>
+                            <span class="tech-tag">Custom Properties</span>
+                            <span class="tech-tag">Responsive Design</span>
+                            <span class="tech-tag">BEM Methodology</span>
+                            <span class="tech-tag">Animations</span>
+                        </div>
+                        <a href="css.html" class="demo-link">View CSS Page <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+                    </div>
+                </article>
+
+                <!-- Bootstrap Card -->
+                <article class="portfolio-card" id="bootstrap">
+                    <div class="card-header">
+                        <div class="card-icon icon-bootstrap" aria-hidden="true">BS</div>
+                        <h2 class="card-title">Bootstrap Framework</h2>
+                    </div>
+                    <div class="card-content">
+                        <p>Bootstrap 5.3 provides a comprehensive component library and responsive grid system for rapid UI development. This section demonstrates advanced Bootstrap usage including customization through SASS variables, component modifications, and JavaScript plugin integration.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">Bootstrap 5.3</span>
+                            <span class="tech-tag">Components</span>
+                            <span class="tech-tag">Grid System</span>
+                            <span class="tech-tag">SASS Customization</span>
+                            <span class="tech-tag">JavaScript Plugins</span>
+                            <span class="tech-tag">Utility Classes</span>
+                        </div>
+                        <a href="bootstrap.html" class="demo-link">View Bootstrap Page <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+                    </div>
+                </article>
+
+                <!-- JavaScript Card -->
+                <article class="portfolio-card" id="js">
+                    <div class="card-header">
+                        <div class="card-icon icon-javascript" aria-hidden="true">JS</div>
+                        <h2 class="card-title">Modern JavaScript</h2>
+                    </div>
+                    <div class="card-content">
+                        <p>Modern JavaScript (ES6+) introduces powerful features that enhance code organization and functionality. This section demonstrates ES6+ modules, arrow functions, destructuring, promises, async/await, and DOM manipulation techniques with a practical task tracker application.</p>
+                        <div class="tech-stack">
+                            <span class="tech-tag">ES6+</span>
+                            <span class="tech-tag">DOM APIs</span>
+                            <span class="tech-tag">Local Storage</span>
+                            <span class="tech-tag">Async/Await</span>
+                            <span class="tech-tag">Modules</span>
+                            <span class="tech-tag">Event Handling</span>
+                        </div>
+                        <a href="javascript.html" class="demo-link">View JavaScript Page <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+                    </div>
+                </article>
+            </div>
+        </main>
+    </div> <!-- Closing container div -->
+
+    <!-- Footer section - MOVED OUTSIDE CONTAINER FOR FULL WIDTH -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Navigation</h3>
+                    <nav class="footer-nav" aria-label="Footer navigation">
+                        <ul class="footer-nav-list">
+                            <li class="footer-nav-item">
+                                <a href="index.html" class="footer-nav-link"><i class="fas fa-home" aria-hidden="true"></i> Home</a>
+                            </li>
+                            <li class="footer-nav-item">
+                                <a href="fullstack.html" class="footer-nav-link"><i class="fas fa-layer-group" aria-hidden="true"></i> Full Stack</a>
+                            </li>
+                            <li class="footer-nav-item">
+                                <a href="html.html" class="footer-nav-link"><i class="fab fa-html5" aria-hidden="true"></i> HTML</a>
+                            </li>
+                            <li class="footer-nav-item">
+                                <a href="css.html" class="footer-nav-link"><i class="fab fa-css3-alt" aria-hidden="true"></i> CSS</a>
+                            </li>
+                            <li class="footer-nav-item">
+                                <a href="javascript.html" class="footer-nav-link"><i class="fab fa-js-square" aria-hidden="true"></i> JavaScript</a>
+                            </li>
+                            <li class="footer-nav-item">
+                                <a href="bootstrap.html" class="footer-nav-link"><i class="fab fa-bootstrap" aria-hidden="true"></i> Bootstrap</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Submission Details</h3>
+                    <p><strong>Student:</strong> Sagar Thapa</p>
+                    <p><strong>Student ID:</strong> BI95SS</p>
+                    <p><strong>Module:</strong> CET138 Full Stack Development</p>
+                    <p><strong>University:</strong> University of Sunderland</p>
+                    <p><strong>College:</strong> ISMT College, Butwal, Nepal</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Assignment Information</h3>
+                    <p><strong>Tutor:</strong> Sandip Dhakal</p>
+                    <p><strong>Submission Date:</strong> 29 August 2025</p>
+                    <p><strong>Time:</strong> 12:00 Midnight (UK Time)</p>
+                    <p><strong>Weighting:</strong> 30% of Module Mark</p>
+                </div>
+            </div>
+            
+            <!-- Social media links -->
+            <div class="social-links">
+                <a href="https://github.com/izzzthisssagar" class="social-link" aria-label="GitHub Profile" target="_blank" rel="noopener noreferrer"><i class="fab fa-github" aria-hidden="true"></i></a>
+                <a href="https://x.com/issssthisssagar" class="social-link" aria-label="X (Twitter) Profile" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+                <a href="https://www.linkedin.com/in/sagar-thapa-4484a5337/" class="social-link" aria-label="LinkedIn Profile" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+                <a href="mailto:sagarthapa2058@gmail.com" class="social-link" aria-label="Email Contact"><i class="fas fa-envelope" aria-hidden="true"></i></a>
+            </div>
+            
+            <!-- Footer copyright information -->
+            <div class="footer-bottom">
+                <p>&copy; 2025 CET138 Full Stack Development ePortfolio | All demonstrations hosted on University webspace</p>
+                <p>Designed and Developed by Sagar Thapa</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            hamburger.setAttribute('aria-expanded', 
+                hamburger.getAttribute('aria-expanded') === 'false' ? 'true' : 'false');
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+            });
+        });
+    </script>
+</body>
+</html>
