@@ -9,7 +9,8 @@
     "optimize": "echo Optimization completed during build process",
     "deploy": "deploy.bat",
     "test": "echo Running portfolio tests... && npm run validate",
-    "start": "echo Starting local server... && python -m http.server 8000 || npx serve ."
+    "start": "echo Starting local server... && python -m http.server 8000 || npx serve .",
+    "vercel-build": "echo 'Static HTML portfolio - no build required'"
   },
   "keywords": [
     "portfolio",
