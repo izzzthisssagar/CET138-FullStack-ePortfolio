@@ -12,11 +12,7 @@
 
 ### 🚀 Primary Deployments (Auto-Updated)
 - **GitHub Pages:** [🌍 Visit Live Site](https://izzzthisssagar.github.io/CET138-FullStack-ePortfolio/) | [📁 Repository](https://github.com/izzzthisssagar/CET138-FullStack-ePortfolio)
-- **Netlify:** [🌍 Visit Live Site](https://cet138-sagar-thapa.netlify.app/) | [🔧 Dashboard](https://app.netlify.com/sites/cet138-sagar-thapa)
-- **Vercel:** [🌍 Visit Live Site](https://cet-138-full-stack-e-portfolio-brvss5141.vercel.app/) | [🔧 Dashboard](https://vercel.com/dashboard)
-
-### 🔧 Backup Deployments (Manual Updates)
-- **Surge.sh:** [🌍 Visit Live Site](https://cet138-sagar-thapa-portfolio.surge.sh/) | [📚 Documentation](https://surge.sh/)
+- **Vercel:** [🌍 Visit Live Site](https://cet-138-full-stack-e-portfolio.vercel.app/) | [🔧 Dashboard](https://vercel.com/dashboard)
 - **Firebase:** [🌍 Visit Live Site](https://cet138-eportfolio-sagar-thapa.web.app/) | [🔧 Console](https://console.firebase.google.com/project/cet138-eportfolio-sagar-thapa/overview)
 
 ## 📋 Portfolio Sections

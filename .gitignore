@@ -70,11 +70,10 @@ node_modules/
 
 .vercel
 
-# Deployment specific files (generated automatically)
-deployment-manifest.txt
-
-# VS Code settings (optional - remove if you want to share settings)
-.vscode/
+# Development and build artifacts
+node_modules/
+npm-debug.log*
+*.log
 
 # Firebase files
 .firebase/
