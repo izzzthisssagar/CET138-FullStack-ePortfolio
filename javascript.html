@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Modern JavaScript ES6+ demonstration featuring task management with local storage, accessibility, and interactive features">
+    <meta name="author" content="Sagar Thapa">
+    <!-- Student Information for Assignment -->
+    <meta name="student-id" content="BI95SS">
+    <meta name="university" content="University of Sunderland">
+    <meta name="college" content="ISMT College, Butwal">
+    <meta name="tutor" content="Sandip Dhakal">
+    <meta name="submission-date" content="29 August 2025">
+    
+    <title>JavaScript Task Tracker - Modern ES6+ Demo | CET138 Assignment</title>
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS for responsive design and components -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --secondary: #7209b7;
+            --accent: #f72585;
+            --accent-dark: #e91e63;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --darker: #121416;
+            --success: #4cc9f0;
+            --warning: #f9c74f;
+            --danger: #e63946;
+            --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            --gradient-reverse: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            --card-gradient: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            --text-dark: #2d3748;
+            --text-light: #718096;
+            --gray-light: #e2e8f0;
+            --gray: #a0aec0;
+            --gray-600: #718096;
+            --gray-500: #a0aec0;
+            --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 6px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 15px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--light);
+            min-height: 100vh;
+            padding-bottom: 2rem;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(16px);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 0.5rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-left: 1.5rem;
+            position: relative;
+        }
+
+        .nav-link {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .nav-link.active {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            color: var(--dark);
+            font-size: 1.5rem;
+        }
+
+        /* Page-specific styles for JavaScript demo */
+        .hero {
+            text-align: center;
+            color: white;
+            padding: 4rem 1rem;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+            background: var(--gradient);
+            border-radius: 0 0 20px 20px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+        }
+
+        .hero-author {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-top: 2rem;
+        }
+
+        .university-info {
+            background: rgba(255, 255, 255, 0.15);
+            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(16px);
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            margin-top: 1.5rem;
+            display: inline-block;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Task form styles */
+        .task-form {
+            background: var(--card-gradient);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .task-form::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient);
+            border-radius: 15px 15px 0 0;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-input, .form-textarea, .form-select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--gray-light);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background: var(--gray);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: var(--gray-600);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Task list styles */
+        .task-list {
+            background: var(--card-gradient);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+
+        .task-list::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient);
+            border-radius: 15px 15px 0 0;
+        }
+
+        .task-item {
+            border: 1px solid var(--gray-light);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background: white;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .task-item:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-3px);
+        }
+
+        .task-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+        }
+
+        .task-title {
+            font-weight: 600;
+            color: var(--dark);
+            margin: 0;
+            font-size: 1.25rem;
+        }
+
+        .task-priority {
+            padding: 0.35rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .priority-high {
+            background: var(--danger);
+            color: white;
+        }
+
+        .priority-medium {
+            background: var(--warning);
+            color: var(--dark);
+        }
+
+        .priority-low {
+            background: var(--success);
+            color: white;
+        }
+
+        .task-description {
+            color: var(--gray-600);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .task-meta {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.875rem;
+            color: var(--gray-500);
+            margin-bottom: 1rem;
+        }
+
+        .task-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .task-actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .btn-sm {
+            padding: 0.6rem 1.2rem;
+            font-size: 0.875rem;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c53030;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #1e7e34;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            color: white;
+            padding: 3rem 0;
+            margin-top: 4rem;
+            background: var(--gradient);
+            border-radius: 15px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .footer-section {
+            padding: 0 1rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.2rem;
+            color: white;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: white;
+        }
+
+        .footer-section p {
+            margin-bottom: 0.8rem;
+            line-height: 1.6;
+        }
+
+        .footer-nav {
+            margin-top: 1.5rem;
+        }
+
+        .footer-nav-list {
+            list-style: none;
+        }
+
+        .footer-nav-item {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-nav-link {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-nav-link:hover {
+            color: white;
+        }
+
+        .footer-nav-link i {
+            margin-right: 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: white;
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .footer-bottom p {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Accessibility and utility classes */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--primary);
+            color: white;
+            padding: 8px;
+            z-index: 100;
+            transition: top 0.3s;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        .error-message {
+            color: var(--danger);
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .form-help {
+            color: var(--gray-600);
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+
+            .task-header {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .task-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .task-actions {
+                flex-wrap: wrap;
+            }
+
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: white;
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: var(--shadow-md);
+                padding: 2rem 0;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-item {
+                margin: 1.5rem 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Navigation Bar -->
+    <nav class="navbar" aria-label="Main navigation">
+        <div class="nav-container">
+            <a href="./index.html" class="logo"><i class="fas fa-laptop-code"></i> CET138 Portfolio</a>
+            
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="./index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="./fullstack.html" class="nav-link"><i class="fas fa-layer-group"></i> Full Stack</a>
+                </li>
+                <li class="nav-item">
+                    <a href="./html.html" class="nav-link"><i class="fab fa-html5"></i> HTML</a>
+                </li>
+                <li class="nav-item">
+                    <a href="./css.html" class="nav-link"><i class="fab fa-css3-alt"></i> CSS</a>
+                </li>
+                <li class="nav-item">
+                    <a href="./javascript.html" class="nav-link active"><i class="fab fa-js-square"></i> JavaScript</a>
+                </li>
+                <li class="nav-item">
+                    <a href="./bootstrap.html" class="nav-link"><i class="fab fa-bootstrap"></i> Bootstrap</a>
+                </li>
+            </ul>
+            
+            <div class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">JavaScript Task Tracker</h1>
+            <p class="hero-subtitle">Modern ES6+ features with local storage and accessibility</p>
+            <div class="university-info">
+                <p class="hero-author"><strong>Student:</strong> Sagar Thapa (BI95SS)</p>
+                <p class="hero-author"><strong>University:</strong> University of Sunderland (ISMT College Butwal)</p>
+                <p class="hero-author"><strong>Tutor:</strong> Sandip Dhakal</p>
+                <p class="hero-author"><strong>Submission Date:</strong> 29 August 2025 (12:00 midnight UK time)</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <main id="main-content">
+            <!-- ======= PASTE THIS WHOLE SECTION RIGHT HERE ======= -->
+<!-- JavaScript Concepts Explanation Section -->
+<section class="concepts-section py-5" aria-labelledby="concepts-heading">
+    <div class="container">
+        <h2 id="concepts-heading" class="text-center mb-5">JavaScript Concepts Demonstrated in This Task Tracker</h2>
+        <p class="lead text-center mb-5">This interactive application showcases several core JavaScript and modern Web API concepts. Below is an explanation of the key features implemented.</p>
+
+        <div class="row g-4">
+            <!-- Concept 1 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="concept-card h-100 p-4">
+                    <div class="concept-icon mb-3">
+                        <i class="fas fa-code fa-2x text-primary"></i>
+                    </div>
+                    <h3 class="h5">1. DOM Manipulation</h3>
+                    <p>The Document Object Model (DOM) is dynamically manipulated to create, update, and delete task elements without refreshing the page. The <code>createTaskElement()</code> function uses JavaScript to generate the HTML structure for each task card.</p>
+                    <div class="code-snippet">
+                        <pre><code>// Example: Creating an element
+const taskDiv = document.createElement('div');
+taskDiv.className = 'task-item';
+taskDiv.innerHTML = `...template...`;
+taskList.appendChild(taskDiv);</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Concept 2 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="concept-card h-100 p-4">
+                    <div class="concept-icon mb-3">
+                        <i class="fas fa-mouse-pointer fa-2x text-primary"></i>
+                    </div>
+                    <h3 class="h5">2. Event Handling</h3>
+                    <p>Event listeners are used to handle user interactions. The form submission is captured, and clicks on the "Delete" and "Mark Complete" buttons are handled to trigger the appropriate functions.</p>
+                    <div class="code-snippet">
+                        <pre><code>// Example: Form submission event
+taskForm.addEventListener('submit', function(e) {
+    e.preventDefault(); // Prevents page reload
+    // ...logic to handle the form data
+});</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Concept 3 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="concept-card h-100 p-4">
+                    <div class="concept-icon mb-3">
+                        <i class="fas fa-database fa-2x text-primary"></i>
+                    </div>
+                    <h3 class="h5">3. Data Persistence (localStorage)</h3>
+                    <p>The Web Storage API (<code>localStorage</code>) is used to persist the task data in the user's browser. This allows the tasks to remain available even after the browser is closed and reopened.</p>
+                    <div class="code-snippet">
+                        <pre><code>// Saving data to localStorage
+localStorage.setItem('tasks', JSON.stringify(tasks));
+
+// Retrieving data from localStorage
+const tasks = JSON.parse(localStorage.getItem('tasks')) || [];</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Concept 4 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="concept-card h-100 p-4">
+                    <div class="concept-icon mb-3">
+                        <i class="fab fa-js-square fa-2x text-primary"></i>
+                    </div>
+                    <h3 class="h5">4. Modern ES6+ Syntax</h3>
+                    <p>This project utilizes modern JavaScript features including arrow functions, template literals, <code>const</code>/<code>let</code>, and array methods like <code>forEach()</code> and <code>findIndex()</code>.</p>
+                    <div class="code-snippet">
+                        <pre><code>// Example: Arrow function & template literal
+const showNotification = (message, type) => {
+    notification.innerHTML = `<i class="fas...">${message}</i>`;
+};</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Concept 5 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="concept-card h-100 p-4">
+                    <div class="concept-icon mb-3">
+                        <i class="fas fa-check-circle fa-2x text-primary"></i>
+                    </div>
+                    <h3 class="h5">5. Form Validation</h3>
+                    <p>Client-side form validation provides immediate user feedback. The Constraint Validation API is used to check if the required "Task Title" field is filled out before submission.</p>
+                    <div class="code-snippet">
+                        <pre><code>// Example: Input validation check
+if (!taskTitle.validity.valid) {
+    showTitleError(); // Show custom error message
+    taskTitle.focus(); // Focus on the input field
+    return; // Stop form submission
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Concept 6 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="concept-card h-100 p-4">
+                    <div class="concept-icon mb-3">
+                        <i class="fas fa-universal-access fa-2x text-primary"></i>
+                    </div>
+                    <h3 class="h5">6. Accessibility (ARIA)</h3>
+                    <p>Accessibility features have been implemented, including ARIA attributes (<code>aria-labelledby</code>, <code>aria-describedby</code>) and a "Skip to main content" link to improve the experience for users of assistive technologies.</p>
+                    <div class="code-snippet">
+                        <pre><code>&lt;!-- Example: ARIA attribute --&gt;
+&lt;div id="titleError" class="error-message" role="alert"&gt;&lt;/div&gt;
+&lt;input aria-describedby="titleError"&gt;</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Add these new styles to your existing <style> tag */
+    .concepts-section {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        border-radius: 20px;
+        margin: 3rem auto;
+    }
+    .concept-card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--gray-light);
+        transition: all 0.3s ease;
+    }
+    .concept-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-lg);
+    }
+    .concept-icon {
+        color: var(--primary);
+    }
+    .code-snippet {
+        background: var(--darker);
+        color: #f8f9fa;
+        padding: 1rem;
+        border-radius: 8px;
+        font-size: 0.85rem;
+        margin-top: 1rem;
+        overflow-x: auto;
+    }
+    .code-snippet pre {
+        margin: 0;
+    }
+    .code-snippet code {
+        font-family: 'Courier New', monospace;
+        white-space: pre-wrap;
+    }
+</style>
+
+
+            <!-- Task Form -->
+            <section class="task-form" aria-labelledby="form-heading">
+                <h2 id="form-heading">Add New Task</h2>
+                <form id="taskForm" novalidate>
+                    <div class="form-group">
+                        <label for="taskTitle" class="form-label">Task Title (required)</label>
+                        <input 
+                            type="text" 
+                            id="taskTitle" 
+                            name="title" 
+                            class="form-input" 
+                            required 
+                            aria-describedby="titleError"
+                            placeholder="Enter task title..."
+                            maxlength="100"
+                        >
+                        <div id="titleError" class="error-message" role="alert"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="taskDescription" class="form-label">Description</label>
+                        <textarea 
+                            id="taskDescription" 
+                            name="description" 
+                            class="form-textarea" 
+                            placeholder="Describe the task in detail..."
+                            aria-describedby="descriptionHelp"
+                            maxlength="500"
+                        ></textarea>
+                        <div id="descriptionHelp" class="form-help">
+                            <small>Optional: Provide additional details about the task (max 500 characters)</small>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="taskPriority" class="form-label">Priority</label>
+                            <select id="taskPriority" name="priority" class="form-select" aria-describedby="priorityHelp">
+                                <option value="low">Low Priority</option>
+                                <option value="medium" selected>Medium Priority</option>
+                                <option value="high">High Priority</option>
+                            </select>
+                            <div id="priorityHelp" class="form-help sr-only">
+                                Select the priority level for this task
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="taskDueDate" class="form-label">Due Date</label>
+                            <input 
+                                type="date" 
+                                id="taskDueDate" 
+                                name="dueDate" 
+                                class="form-input"
+                                min=""
+                                aria-describedby="dateHelp"
+                            >
+                            <div id="dateHelp" class="form-help sr-only">
+                                Select a due date for this task
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Add Task
+                        </button>
+                        <button type="reset" class="btn btn-secondary">
+                            <i class="fas fa-undo"></i> Reset
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Task List -->
+            <section class="task-list" aria-labelledby="list-heading">
+                <h2 id="list-heading">Task List</h2>
+                <div id="taskList">
+                    <!-- Tasks will be dynamically added here -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Navigation</h3>
+                <nav class="footer-nav" aria-label="Footer navigation">
+                    <ul class="footer-nav-list">
+                        <li class="footer-nav-item">
+                            <a href="index.html" class="footer-nav-link"><i class="fas fa-home"></i> Home</a>
+                        </li>
+                        <li class="footer-nav-item">
+                            <a href="fullstack.html" class="footer-nav-link"><i class="fas fa-layer-group"></i> Full Stack</a>
+                        </li>
+                        <li class="footer-nav-item">
+                            <a href="html.html" class="footer-nav-link"><i class="fab fa-html5"></i> HTML</a>
+                        </li>
+                        <li class="footer-nav-item">
+                            <a href="css.html" class="footer-nav-link"><i class="fab fa-css3-alt"></i> CSS</a>
+                        </li>
+                        <li class="footer-nav-item">
+                            <a href="javascript.html" class="footer-nav-link"><i class="fab fa-js-square"></i> JavaScript</a>
+                        </li>
+                        <li class="footer-nav-item">
+                            <a href="bootstrap.html" class="footer-nav-link"><i class="fab fa-bootstrap"></i> Bootstrap</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="footer-section">
+                <h3>Submission Details</h3>
+                <p><strong>Student:</strong> Sagar Thapa</p>
+                <p><strong>Student ID:</strong> BI95SS</p>
+                <p><strong>Module:</strong> CET138 Full Stack Development</p>
+                <p><strong>University:</strong> University of Sunderland</p>
+                <p><strong>College:</strong> ISMT College, Butwal, Nepal</p>
+            </div>
+
+            <div class="footer-section">
+                <h3>Assignment Information</h3>
+                <p><strong>Tutor:</strong> Sandip Dhakal</p>
+                <p><strong>Submission Date:</strong> 29 August 2025</p>
+                <p><strong>Time:</strong> 12:00 Midnight (UK Time)</p>
+                <p><strong>Weighting:</strong> 30% of Module Mark</p>
+            </div>
+        </div>
+    
+        <!-- Social media links -->
+        <div class="social-links">
+            <a href="https://github.com/izzzthisssagar" class="social-link" aria-label="GitHub Profile" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
+            <a href="https://x.com/issssthisssagar" class="social-link" aria-label="X (Twitter) Profile" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.linkedin.com/in/sagar-thapa-4484a5337/" class="social-link" aria-label="LinkedIn Profile" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin-in"></i></a>
+            <a href="mailto:sagarthapa2058@gmail.com" class="social-link" aria-label="Email Contact"><i class="fas fa-envelope"></i></a>
+        </div>
+
+        <!-- Footer copyright information -->
+        <div class="footer-bottom">
+            <p>&copy; 2025 CET138 Full Stack Development ePortfolio | All demonstrations hosted on University webspace</p>
+            <p>Designed and Developed by Sagar Thapa</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <!-- Accessibility notification toast -->
+    <div class="notification" id="accessibilityNotification">
+        <i class="fas fa-check-circle"></i> Accessibility features enabled for better navigation
+    </div>
+
+    <!-- Bootstrap & jQuery JS -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // JavaScript functionality for the task tracker
+        document.addEventListener('DOMContentLoaded', function() {
+            const taskForm = document.getElementById('taskForm');
+            const taskList = document.getElementById('taskList');
+            const taskTitle = document.getElementById('taskTitle');
+            const titleError = document.getElementById('titleError');
+            
+            // Load tasks from localStorage
+            loadTasks();
+            
+            // Set minimum date to today
+            const dueDateInput = document.getElementById('taskDueDate');
+            const today = new Date().toISOString().split('T')[0];
+            dueDateInput.min = today;
+            
+            // Form validation
+            taskTitle.addEventListener('input', function() {
+                if (taskTitle.validity.valid) {
+                    titleError.style.display = 'none';
+                    taskTitle.setCustomValidity('');
+                } else {
+                    showTitleError();
+                }
+            });
+            
+            function showTitleError() {
+                if (taskTitle.validity.valueMissing) {
+                    titleError.textContent = 'Task title is required';
+                } else if (taskTitle.validity.tooShort) {
+                    titleError.textContent = `Task title should be at least ${taskTitle.minLength} characters`;
+                }
+                titleError.style.display = 'block';
+            }
+            
+            // Form submission
+            taskForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                if (!taskTitle.validity.valid) {
+                    showTitleError();
+                    taskTitle.focus();
+                    return;
+                }
+                
+                const formData = new FormData(taskForm);
+                const task = {
+                    id: Date.now(),
+                    title: formData.get('title'),
+                    description: formData.get('description'),
+                    priority: formData.get('priority'),
+                    dueDate: formData.get('dueDate'),
+                    completed: false,
+                    createdAt: new Date().toISOString()
+                };
+                
+                addTask(task);
+                taskForm.reset();
+                showNotification('Task added successfully!', 'success');
+            });
+            
+            function addTask(task) {
+                const tasks = getTasks();
+                tasks.push(task);
+                localStorage.setItem('tasks', JSON.stringify(tasks));
+                displayTasks();
+            }
+            
+            function getTasks() {
+                const tasks = localStorage.getItem('tasks');
+                return tasks ? JSON.parse(tasks) : [];
+            }
+            
+            function loadTasks() {
+                displayTasks();
+            }
+            
+            function displayTasks() {
+                const tasks = getTasks();
+                taskList.innerHTML = '';
+                
+                if (tasks.length === 0) {
+                    taskList.innerHTML = '<p class="text-center py-4">No tasks yet. Add your first task above!</p>';
+                    return;
+                }
+
+                tasks.forEach(task => {
+                    const taskElement = createTaskElement(task);
+                    taskList.appendChild(taskElement);
+                });
+            }
+            
+            function createTaskElement(task) {
+                const taskDiv = document.createElement('div');
+                taskDiv.className = 'task-item';
+                taskDiv.innerHTML = `
+                    <div class="task-header">
+                        <h3 class="task-title">${escapeHtml(task.title)}</h3>
+                        <span class="task-priority priority-${task.priority}">${task.priority}</span>
+                    </div>
+                    ${task.description ? `<p class="task-description">${escapeHtml(task.description)}</p>` : ''}
+                    <div class="task-meta">
+                        ${task.dueDate ? `<span><i class="fas fa-calendar"></i> Due: ${formatDate(task.dueDate)}</span>` : ''}
+                        <span><i class="fas fa-clock"></i> Created: ${formatDate(task.createdAt)}</span>
+                    </div>
+                    <div class="task-actions">
+                        <button class="btn btn-sm ${task.completed ? 'btn-secondary' : 'btn-success'}" 
+                                onclick="toggleTask(${task.id})">
+                            <i class="fas fa-${task.completed ? 'undo' : 'check'}"></i>
+                            ${task.completed ? 'Mark Incomplete' : 'Mark Complete'}
+                        </button>
+                        <button class="btn btn-sm btn-danger" onclick="deleteTask(${task.id})">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                    </div>
+                `;
+                return taskDiv;
+            }
+            
+            function escapeHtml(unsafe) {
+                return unsafe
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#039;");
+            }
+            
+            function formatDate(dateString) {
+                const date = new Date(dateString);
+                return date.toLocaleDateString('en-GB', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric'
+                });
+            }
+            
+            // Global functions for task actions
+            window.toggleTask = function(taskId) {
+                const tasks = getTasks();
+                const taskIndex = tasks.findIndex(t => t.id === taskId);
+                if (taskIndex !== -1) {
+                    tasks[taskIndex].completed = !tasks[taskIndex].completed;
+                    localStorage.setItem('tasks', JSON.stringify(tasks));
+                    displayTasks();
+                    showNotification(`Task marked as ${tasks[taskIndex].completed ? 'complete' : 'incomplete'}!`, 'success');
+                }
+            };
+            
+            window.deleteTask = function(taskId) {
+                if (confirm('Are you sure you want to delete this task?')) {
+                    const tasks = getTasks();
+                    const filteredTasks = tasks.filter(t => t.id !== taskId);
+                    localStorage.setItem('tasks', JSON.stringify(filteredTasks));
+                    displayTasks();
+                    showNotification('Task deleted successfully!', 'success');
+                }
+            };
+            
+            function showNotification(message, type = 'info') {
+                // Create notification element
+                const notification = document.createElement('div');
+                notification.className = `notification ${type}`;
+                notification.innerHTML = `
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'}"></i> ${message}
+                `;
+                
+                // Style the notification
+                notification.style.cssText = `
+                    position: fixed;
+                    bottom: 20px;
+                    right: 20px;
+                    padding: 1rem 1.5rem;
+                    border-radius: 8px;
+                    color: white;
+                    font-weight: 500;
+                    z-index: 1000;
+                    opacity: 0;
+                    transform: translateY(20px);
+                    transition: opacity 0.3s, transform 0.3s;
+                    box-shadow: var(--shadow-lg);
+                `;
+                
+                // Set background color based on type
+                if (type === 'success') {
+                    notification.style.background = 'var(--success)';
+                } else if (type === 'error') {
+                    notification.style.background = 'var(--danger)';
+                } else {
+                    notification.style.background = 'var(--primary)';
+                }
+                
+                // Add to DOM
+                document.body.appendChild(notification);
+                
+                // Animate in
+                setTimeout(() => {
+                    notification.style.opacity = '1';
+                    notification.style.transform = 'translateY(0)';
+                }, 10);
+                
+                // Remove after 3 seconds
+                setTimeout(() => {
+                    notification.style.opacity = '0';
+                    notification.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        document.body.removeChild(notification);
+                    }, 300);
+                }, 3000);
+            }
+            
+            // Mobile menu toggle
+            const hamburger = document.querySelector('.hamburger');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            if (hamburger) {
+                hamburger.addEventListener('click', () => {
+                    navMenu.classList.toggle('active');
+                    hamburger.setAttribute('aria-expanded', 
+                        hamburger.getAttribute('aria-expanded') === 'false' ? 'true' : 'false');
+                });
+                
+                // Close mobile menu when clicking on a link
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.addEventListener('click', () => {
+                        navMenu.classList.remove('active');
+                        hamburger.setAttribute('aria-expanded', 'false');
+                    });
+                });
+            }
+            
+            // Back to top button
+            const backToTopButton = document.querySelector('.back-to-top');
+            
+            if (backToTopButton) {
+                backToTopButton.addEventListener('click', () => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+                
+                window.addEventListener('scroll', () => {
+                    if (window.pageYOffset > 300) {
+                        backToTopButton.style.opacity = '1';
+                        backToTopButton.style.visibility = 'visible';
+                    } else {
+                        backToTopButton.style.opacity = '0';
+                        backToTopButton.style.visibility = 'hidden';
+                    }
+                });
+                
+                // Style the back to top button
+                backToTopButton.style.cssText = `
+                    position: fixed;
+                    bottom: 30px;
+                    right: 30px;
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 50%;
+                    background: var(--primary);
+                    color: white;
+                    border: none;
+                    cursor: pointer;
+                    opacity: 0;
+                    visibility: hidden;
+                    transition: opacity 0.3s, visibility 0.3s;
+                    box-shadow: var(--shadow-md);
+                    z-index: 999;
+                `;
+            }
+        });
+    </script>
+</body>
+</html>

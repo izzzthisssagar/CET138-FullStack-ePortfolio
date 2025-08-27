@@ -1,0 +1,1979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Advanced CSS Grid and Flexbox demonstration with responsive design and modern CSS features">
+    <meta name="author" content="Sagar Thapa">
+    <!-- Student Information for Assignment -->
+    <meta name="student-id" content="BI95SS">
+    <meta name="university" content="University of Sunderland">
+    <meta name="college" content="ISMT College, Butwal">
+    <meta name="tutor" content="Sandip Dhakal">
+    <meta name="submission-date" content="29 August 2025">
+    
+    <title>CSS Responsive Grid Layout Demo - Modern CSS Techniques | CET138 Assignment</title>
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Bootstrap CSS for responsive design and components -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="shared-styles.css">
+    
+    <style>
+        /* CSS Custom Properties (Variables) - Updated to match index.html */
+        :root {
+            /* Color palette from index.html */
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --secondary: #7209b7;
+            --accent: #f72585;
+            --accent-dark: #e91e63;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --darker: #121416;
+            --success: #4cc9f0;
+            --warning: #f9c74f;
+            --danger: #dc3545;
+            --gray: #6c757d;
+            --gray-light: #e9ecef;
+            --white: #ffffff;
+            --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            --gradient-reverse: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            --card-gradient: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            --text-dark: #2d3748;
+            --text-light: #718096;
+
+            /* Typography scale using fluid typography */
+            --font-size-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+            --font-size-sm: clamp(0.875rem, 0.8rem + 0.375vw, 1rem);
+            --font-size-base: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
+            --font-size-lg: clamp(1.125rem, 1rem + 0.625vw, 1.25rem);
+            --font-size-xl: clamp(1.25rem, 1.1rem + 0.75vw, 1.5rem);
+            --font-size-2xl: clamp(1.5rem, 1.3rem + 1vw, 2rem);
+            --font-size-3xl: clamp(2rem, 1.7rem + 1.5vw, 3rem);
+
+            /* Spacing scale */
+            --space-xs: 0.25rem;
+            --space-sm: 0.5rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-2xl: 3rem;
+            --space-3xl: 4rem;
+
+            /* Border radius */
+            --radius-sm: 0.25rem;
+            --radius-md: 0.375rem;
+            --radius-lg: 0.5rem;
+            --radius-xl: 0.75rem;
+
+            /* Shadows */
+            --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 6px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 15px 30px rgba(0, 0, 0, 0.12);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+            /* Transitions */
+            --transition-fast: 150ms ease-in-out;
+            --transition-normal: 250ms ease-in-out;
+            --transition-slow: 300ms ease-in-out;
+        }
+
+        /* Dark mode color scheme */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --primary: #5a6fee;
+                --primary-dark: #4a5cd4;
+                --secondary: #8320c7;
+                --accent: #f83b97;
+                --accent-dark: #eb2c7a;
+
+                --dark: #f8f9fa;
+                --darker: #e9ecef;
+                --light: #2c3e50;
+                --lighter: #1a202c;
+                --text-dark: #e2e8f0;
+                --text-light: #a0aec0;
+            }
+        }
+
+        /* Reduced motion preference */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        /* Reset and base styles */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            font-size: var(--font-size-base);
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--light);
+            min-height: 100vh;
+        }
+
+        /* Skip link for accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: var(--space-md);
+            background: var(--darker);
+            color: var(--light);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 600;
+            z-index: 1000;
+            transition: top var(--transition-fast);
+        }
+
+        .skip-link:focus {
+            top: var(--space-md);
+        }
+
+        /* Focus indicators for accessibility */
+        *:focus {
+            outline: 3px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        /* Navigation Bar (from index.html) */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(16px);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-sm);
+            width: 100%;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 0.5rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-left: 1.5rem;
+            position: relative;
+        }
+
+        .nav-link {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+        }
+
+        .nav-link i {
+            margin-right: 0.5rem;
+        }
+
+        .nav-link.active {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            color: var(--dark);
+            font-size: 1.5rem;
+        }
+
+        /* Breadcrumb navigation (from index.html) */
+        .breadcrumb {
+            background: rgba(255, 255, 255, 0.9);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+            width: 100%;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .breadcrumb-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .breadcrumb-list {
+            display: flex;
+            list-style: none;
+        }
+
+        .breadcrumb-item {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb-item:not(:last-child)::after {
+            content: '/';
+            margin: 0 0.7rem;
+            color: var(--text-light);
+        }
+
+        .breadcrumb-link {
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .breadcrumb-link:hover {
+            color: var(--primary);
+        }
+
+        .breadcrumb-link i {
+            margin-right: 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        .breadcrumb-item.active .breadcrumb-link {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Header styles using Flexbox */
+        .header {
+            background: var(--gradient);
+            color: white;
+            padding: var(--space-xl);
+            margin-bottom: var(--space-xl);
+            text-align: center;
+            border-radius: 0;
+            width: 100%;
+        }
+
+        .header__title {
+            font-size: var(--font-size-3xl);
+            font-weight: 800;
+            color: white;
+            margin-bottom: var(--space-sm);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .header__subtitle {
+            font-size: var(--font-size-lg);
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: var(--space-lg);
+        }
+
+        /* Navigation using Flexbox */
+        .nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+        }
+
+        .nav__button {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: var(--space-sm) var(--space-lg);
+            border-radius: var(--radius-lg);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 120px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .nav__button:hover,
+        .nav__button:focus {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav__button.active {
+            background: white;
+            color: var(--primary);
+        }
+
+        /* Main content container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* CSS Grid Layout for card gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-xl);
+            padding: var(--space-xl) 0;
+        }
+
+        /* Card component styling */
+        .card {
+            background: var(--card-gradient);
+            border-radius: var(--radius-xl);
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-md);
+            transition: all var(--transition-normal);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Card header with Flexbox */
+        .card__header {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: var(--space-lg);
+        }
+
+        .card__icon {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--radius-lg);
+            margin-right: var(--space-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-size-2xl);
+            font-weight: 800;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .card__icon--css { background: var(--gradient); }
+        .card__icon--grid { background: linear-gradient(135deg, var(--success), #06d6a0); }
+        .card__icon--flex { background: linear-gradient(135deg, var(--warning), #fcd34d); color: #323330; }
+        .card__icon--responsive { background: linear-gradient(135deg, var(--danger), #fb7185); }
+        .card__icon--animation { background: linear-gradient(135deg, #8b5cf6, #a78bfa); }
+        .card__icon--modern { background: linear-gradient(135deg, var(--primary), #67e8f9); }
+
+        .card__title {
+            font-size: var(--font-size-xl);
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: var(--space-xs);
+        }
+
+        .card__subtitle {
+            font-size: var(--font-size-sm);
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .card__content {
+            margin-bottom: var(--space-lg);
+        }
+
+        .card__description {
+            color: var(--text-dark);
+            line-height: 1.7;
+            margin-bottom: var(--space-md);
+        }
+
+        /* Feature list using CSS Grid */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-md);
+            margin: var(--space-lg) 0;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            padding: var(--space-sm);
+            background: var(--gray-light);
+            border-radius: var(--radius-md);
+            transition: background-color var(--transition-fast);
+        }
+
+        .feature:hover {
+            background: var(--gray-light);
+        }
+
+        .feature__icon {
+            width: 20px;
+            height: 20px;
+            margin-right: var(--space-sm);
+            color: var(--success);
+        }
+
+        .feature__text {
+            font-size: var(--font-size-sm);
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        /* Demo button */
+        .demo-button {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: var(--space-md) var(--space-xl);
+            border-radius: var(--radius-lg);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .demo-button:hover,
+        .demo-button:focus {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+            background: var(--gradient-reverse);
+        }
+
+        /* Interactive demo section */
+        .interactive-demo {
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            padding: var(--space-xl);
+            margin: var(--space-xl) 0;
+            box-shadow: var(--shadow-md);
+            color: var(--text-dark);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-lg);
+            margin-top: var(--space-lg);
+        }
+
+        .demo-item {
+            aspect-ratio: 16 / 9;
+            background: var(--gradient);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: var(--font-size-lg);
+            transition: all var(--transition-normal);
+            cursor: pointer;
+        }
+
+        .demo-item:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* Flexbox demo section */
+        .flexbox-demo {
+            background: var(--gray-light);
+            padding: var(--space-lg);
+            border-radius: var(--radius-lg);
+            margin: var(--space-lg) 0;
+        }
+
+        .flex-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-md);
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-lg);
+            background: white;
+            border-radius: var(--radius-md);
+            min-height: 120px;
+        }
+
+        .flex-item {
+            background: var(--primary);
+            color: white;
+            padding: var(--space-md);
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            flex: 1;
+            text-align: center;
+            min-width: 100px;
+            transition: all var(--transition-normal);
+        }
+
+        .flex-item:hover {
+            background: var(--primary-dark);
+            transform: scale(1.1);
+        }
+
+        /* Controls for interactive demos */
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+            margin: var(--space-lg) 0;
+        }
+
+        .control-button {
+            background: var(--gray-light);
+            border: 1px solid var(--gray);
+            padding: var(--space-sm) var(--space-md);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            font-size: var(--font-size-sm);
+        }
+
+        .control-button:hover,
+        .control-button.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Assignment info section */
+        .assignment-info {
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            padding: var(--space-xl);
+            margin: var(--space-xl) 0;
+            box-shadow: var(--shadow-md);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-lg);
+            margin-top: var(--space-lg);
+        }
+
+        .info-item {
+            padding: var(--space-md);
+            background: var(--gray-light);
+            border-radius: var(--radius-lg);
+        }
+
+        .info-item h3 {
+            color: var(--primary);
+            margin-bottom: var(--space-sm);
+        }
+
+        /* Responsive breakpoints */
+        @media (max-width: 768px) {
+            .gallery {
+                grid-template-columns: 1fr;
+                gap: var(--space-lg);
+            }
+
+            .card {
+                padding: var(--space-lg);
+            }
+
+            .card__header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .card__icon {
+                margin: 0 auto var(--space-md) auto;
+            }
+
+            .nav {
+                flex-direction: column;
+            }
+
+            .nav__button {
+                width: 100%;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            /* Mobile navigation */
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: white;
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: var(--shadow-md);
+                padding: 2rem 0;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-item {
+                margin: 1.5rem 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .hamburger.active {
+                color: var(--primary);
+            }
+            
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .header {
+                padding: var(--space-lg);
+            }
+            
+            .header__title {
+                font-size: var(--font-size-2xl);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .flex-container {
+                flex-direction: column;
+            }
+
+            .controls {
+                justify-content: center;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+
+            .controls,
+            .demo-button {
+                display: none;
+            }
+
+            .card {
+                break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+            
+            .navbar, .breadcrumb {
+                display: none;
+            }
+        }
+
+        /* Animation examples */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .animate-pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* Utility classes using CSS Grid and Flexbox */
+        .grid-auto-fit {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-md);
+        }
+
+        .flex-center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .flex-between {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .flex-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Modern CSS features demonstration */
+        .modern-features {
+            margin-top: var(--space-2xl);
+        }
+
+        .aspect-ratio-demo {
+            aspect-ratio: 16 / 9;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            margin: var(--space-lg) 0;
+        }
+
+        .clamp-demo {
+            font-size: clamp(1rem, 4vw, 3rem);
+            font-weight: 800;
+            text-align: center;
+            margin: var(--space-lg) 0;
+            color: var(--primary);
+        }
+
+        /* Accessibility enhancements */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        @media (prefers-reduced-motion: no-preference) {
+            .card:hover {
+                animation: pulse 0.5s ease-in-out;
+            }
+        }
+
+        /* Loading state */
+        .loading {
+            opacity: 1;
+            pointer-events: none;
+        }
+
+        /* Error message */
+        .error-message {
+            background-color: #fee2e2;
+            color: #b91c1c;
+            padding: var(--space-md);
+            border-radius: var(--radius-md);
+            margin: var(--space-md) 0;
+            display: none;
+        }
+        
+        /* Feature queries for backdrop-filter support */
+        @supports ((-webkit-backdrop-filter: blur(0)) or (backdrop-filter: blur(0))) {
+            .header { -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+        }
+
+        /* Utility classes to replace inline styles */
+        .anim-delay-01 { animation-delay: 0.1s !important; }
+        .anim-delay-02 { animation-delay: 0.2s !important; }
+        .anim-delay-03 { animation-delay: 0.3s !important; }
+        .anim-delay-04 { animation-delay: 0.4s !important; }
+        .anim-delay-05 { animation-delay: 0.5s !important; }
+        .is-hidden { display: none; }
+
+        /* Ensure gallery section is visible by default */
+        #gallery {
+            display: block !important;
+        }
+        .footer-spaced { margin-top: var(--space-2xl); }
+        .text-center { text-align: center; }
+        .footer-panel { 
+            background: rgba(255, 255, 255, 0.9); 
+            padding: var(--space-lg); 
+            border-radius: var(--radius-xl); 
+            color: var(--dark);
+        }
+        
+        /* Footer styles to match index.html */
+        footer {
+            text-align: center;
+            color: white;
+            padding: 3rem 0;
+            margin-top: 4rem;
+            background: var(--gradient);
+            border-radius: 0;
+            width: 100%;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+            text-align: left;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-section {
+            padding: 0 1rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.2rem;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: white;
+        }
+
+        .footer-section p {
+            margin-bottom: 0.8rem;
+            line-height: 1.6;
+        }
+
+        .footer-nav {
+            margin-top: 1.5rem;
+        }
+
+        .footer-nav-list {
+            list-style: none;
+        }
+
+        .footer-nav-item {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-nav-link {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-nav-link:hover {
+            color: white;
+        }
+
+        .footer-nav-link i {
+            margin-right: 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: white;
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 1200px;
+            margin: 2rem auto 0;
+            padding: 1.5rem 2rem 0;
+        }
+
+        .footer-bottom p {
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Progress bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: var(--gradient);
+            width: 0%;
+            z-index: 1001;
+            transition: width 0.2s ease;
+        }
+        
+        /* Browser warning */
+        .browser-warning {
+            background: var(--warning);
+            color: #323330;
+            padding: 10px;
+            text-align: center;
+            display: none;
+        }
+        
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            display: none;
+            z-index: 99;
+            transition: all 0.3s ease;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-3px);
+        }
+        
+        /* Notification toast */
+        .notification {
+            position: fixed;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--success);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: bottom 0.5s ease;
+            z-index: 1000;
+        }
+        
+        .notification.show {
+            bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Progress bar -->
+    <div class="progress-bar" id="progressBar"></div>
+    
+    <!-- Browser compatibility warning -->
+    <div class="browser-warning" id="browserWarning">
+        <i class="fas fa-exclamation-triangle"></i> For the best experience, please use an updated browser
+    </div>
+
+    <!-- Navigation Bar (from index.html) -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="./index.html" class="logo"><i class="fas fa-laptop-code"></i> CET138 Portfolio</a>
+            
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="./index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="./fullstack.html" class="nav-link"><i class="fas fa-layer-group"></i> Full Stack</a>
+                </li>
+                <li class="nav-item">
+                    <a href="./html.html" class="nav-link"><i class="fab fa-html5"></i> HTML</a>
+                </li>
+                <li class="nav-item">
+                    <a href="./css.html" class="nav-link active"><i class="fab fa-css3-alt"></i> CSS</a>
+                </li>
+                <li class="nav-item">
+                    <a href="./javascript.html" class="nav-link"><i class="fab fa-js-square"></i> JavaScript</a>
+                </li>
+                <li class="nav-item">
+                    <a href="./bootstrap.html" class="nav-link"><i class="fab fa-bootstrap"></i> Bootstrap</a>
+                </li>
+            </ul>
+            
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb navigation (from index.html) -->
+    <nav class="breadcrumb">
+        <div class="breadcrumb-container">
+            <ul class="breadcrumb-list">
+                <li class="breadcrumb-item">
+                    <a href="./index.html" class="breadcrumb-link"><i class="fas fa-home"></i> Home</a>
+                </li>
+                <li class="breadcrumb-item active">
+                    <a href="#" class="breadcrumb-link">CSS Demo</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="header">
+        <div class="container">
+            <h1 class="header__title">CSS Grid & Flexbox Demo</h1>
+            <p class="header__subtitle">Modern CSS Layout Techniques with Responsive Design</p>
+
+            <nav class="nav" role="navigation" aria-label="Demo navigation">
+                <button class="nav__button active" onclick="showSection('gallery')" type="button">
+                    Layout Gallery
+                </button>
+                <button class="nav__button" onclick="showSection('interactive')" type="button">
+                    Interactive Demo
+                </button>
+                <button class="nav__button" onclick="showSection('modern')" type="button">
+                    Modern Features
+                </button>
+                <button class="nav__button" onclick="showSection('assignment')" type="button">
+                    Assignment Info
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <main id="main-content">
+            <!-- Error message container -->
+            <div id="error-message" class="error-message" role="alert" aria-live="assertive"></div>
+
+            <!-- Layout Gallery Section -->
+            <section id="gallery" class="section" aria-labelledby="gallery-heading">
+                <h2 id="gallery-heading" class="sr-only">CSS Layout Techniques Gallery</h2>
+
+                <div class="gallery">
+                    <article class="card animate-fade-in">
+                        <header class="card__header">
+                            <div class="card__icon card__icon--grid" aria-hidden="true">G</div>
+                            <div>
+                                <h3 class="card__title">CSS Grid Layout</h3>
+                                <p class="card__subtitle">Two-dimensional layout system</p>
+                            </div>
+                        </header>
+
+                        <div class="card__content">
+                            <p class="card__description">
+                                CSS Grid provides powerful two-dimensional layout capabilities, allowing precise control over both rows and columns simultaneously.
+                            </p>
+
+                            <div class="features">
+                                <div class="feature">
+                                    <span class="feature__icon" aria-hidden="true">✓</span>
+                                    <span class="feature__text">Auto-fit columns</span>
+                                </div>
+                                <div class="feature">
+                                    <span class="feature__icon" aria-hidden="true">✓</span>
+                                    <span class="feature__text">Gap control</span>
+                                </div>
+                                <div class="feature">
+                                    <span class="feature__icon" aria-hidden="true">✓</span>
+                                    <span class="feature__text">Responsive design</span>
+                                </div>
+                                <div class="feature">
+                                    <span class="feature__icon" aria-hidden="true">✓</span>
+                                    <span class="feature__text">Alignment options</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="demo-button" onclick="highlightGrid()" type="button">
+                            See Grid in Action
+                        </button>
+                    </article>
+
+                    <article class="card animate-fade-in anim-delay-01">
+                        <header class="card__header">
+                            <div class="card__icon card__icon--flex" aria-hidden="true">F</div>
+                            <div>
+                                <h3 class="card__title">Flexbox Layout</h3>
+                                <p class="card__subtitle">One-dimensional layout system</p>
+                            </div>
+                        </header>
+
+                        <div class="card__content">
+                            <p class="card__description">
+                                Flexbox excels at distributing space and aligning items in one dimension, perfect for navigation bars and component layouts.
+                            </p>
+
+                            <div class="features">
+                                <div class="feature">
+                                    <span class="feature__icon" aria-hidden="true">✓</span>
+                                    <span class="feature__text">Flexible sizing</span>
+                                </div>
+                                <div class="feature">
+                                    <span class="feature__icon" aria-hidden="true">✓</span>
+                                    <span class="feature__text">Perfect centering</span>
+                                </div>
+                                <div class="feature">
+                                    <span class="feature__icon" aria-hidden="true">✓</span>
+                                    <span class="feature__text">Direction control</span>
+                                </div>
+                                <div class="feature">
+                                    <span class="feature__icon" aria-hidden="true">✓</span>
+                                    <span class="feature__text">Wrap behavior</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="demo-button" onclick="highlightFlex()" type="button">
+                            See Flexbox Demo
+                        </button>
+                    </article>
+
+                    <article class="card animate-fade-in anim-delay-02">
+                        <header class="card__header">
+                            <div class="card__icon card__icon--responsive" aria-hidden="true">R</div>
+                            <div>
+                                <h3 class="card__title">Responsive Design</h3>
+                                <p class="card__subtitle">Mobile-first approach</p>
+                            </div>
+                        </header>
+
+                        <div class="card__content">
+                            <p class="card__description">
+                                Modern responsive design uses fluid typography, flexible layouts, and container queries for optimal viewing across all devices.
+                            </p>
+
+                            <div class="features">
+                                <div class="feature">
+                                    <span class="feature__icon" aria-hidden="true">✓</span>
+                                    <span class="feature__text">Fluid typography</span>
+                                </div>
+                                <div class="feature">
+                                    <span class="feature__icon" aria-hidden="true">✓</span>
+                                    <span class="feature__text">Media queries</span>
+                                </div>
+                                <div class="feature">
+                                    <span class="feature__icon" aria-hidden="true">✓</span>
+                                    <span class="feature__text">Flexible images</span>
+                                </div>
+                                <div class="feature">
+                                    <span class="feature__icon" aria-hidden="true">✓</span>
+                                    <span class="feature__text">Mobile-first</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="demo-button" onclick="toggleViewport()" type="button">
+                            Test Responsiveness
+                        </button>
+                    </article>
+
+                    <article class="card animate-fade-in anim-delay-03">
+                        <header class="card__header">
+                            <div class="card__icon card__icon--animation" aria-hidden="true">A</div>
+                            <div>
+                                <h3 class="card__title">CSS Animations</h3>
+                                <p class="card__subtitle">Smooth transitions and effects</p>
+                            </div>
+                        </header>
+
+                        <div class="card__content">
+                            <p class="card__description">
+                                CSS animations and transitions create engaging user experiences while respecting user preferences like reduced motion.
+                            </p>
+
+                            <div class="features">
+                                <div class="feature">
+                                    <span class="feature__icon" aria-hidden="true">✓</span>
+                                    <span class="feature__text">Keyframe animations</span>
+                                </div>
+                                <div class="feature">
+                                    <span class="feature__icon" aria-hidden="true">✓</span>
+                                    <span class="feature__text">Smooth transitions</span>
+                                </div>
+                                <div class="feature">
+                                    <span class="feature__icon" aria-hidden="true">✓</span>
+                                    <span class="feature__text">Performance optimized</span>
+                                </div>
+                                <div class="feature">
+                                    <span class="feature__icon" aria-hidden="true">✓</span>
+                                    <span class="feature__text">Accessibility aware</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="demo-button animate-pulse" onclick="triggerAnimations()" type="button">
+                            Trigger Animations
+                        </button>
+                    </article>
+
+                    <article class="card animate-fade-in anim-delay-04">
+                        <header class="card__header">
+                            <div class="card__icon card__icon--css" aria-hidden="true">V</div>
+                            <div>
+                                <h3 class="card__title">CSS Variables</h3>
+                                <p class="card__subtitle">Dynamic custom properties</p>
+                            </div>
+                        </header>
+
+                        <div class="card__content">
+                            <p class="card__description">
+                                CSS custom properties enable dynamic theming, consistent design systems, and runtime style modifications.
+                            </p>
+
+                            <div class="features">
+                                <div class="feature">
+                                    <span class="feature__icon" aria-hidden="true">✓</span>
+                                    <span class="feature__text">Dynamic values</span>
+                                </div>
+                                <div class="feature">
+                                    <span class="feature__icon" aria-hidden="true">✓</span>
+                                    <span class="feature__text">Theme switching</span>
+                                </div>
+                                <div class="feature">
+                                    <span class="feature__icon" aria-hidden="true">✓</span>
+                                    <span class="feature__text">Inheritance</span>
+                                </div>
+                                <div class="feature">
+                                    <span class="feature__icon" aria-hidden="true">✓</span>
+                                    <span class="feature__text">Runtime updates</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="demo-button" onclick="toggleTheme()" type="button">
+                            Toggle Theme
+                        </button>
+                    </article>
+
+                    <article class="card animate-fade-in anim-delay-05">
+                        <header class="card__header">
+                            <div class="card__icon card__icon--modern" aria-hidden="true">M</div>
+                            <div>
+                                <h3 class="card__title">Modern CSS Features</h3>
+                                <p class="card__subtitle">Cutting-edge techniques</p>
+                            </div>
+                        </header>
+
+                        <div class="card__content">
+                            <p class="card__description">
+                                Latest CSS features including aspect-ratio, clamp(), logical properties, and container queries for future-ready designs.
+                            </p>
+
+                            <div class="features">
+                                <div class="feature">
+                                    <span class="feature__icon" aria-hidden="true">✓</span>
+                                    <span class="feature__text">Aspect ratio</span>
+                                </div>
+                                <div class="feature">
+                                    <span class="feature__icon" aria-hidden="true">✓</span>
+                                    <span class="feature__text">Clamp function</span>
+                                </div>
+                                <div class="feature">
+                                    <span class="feature__icon" aria-hidden="true">✓</span>
+                                    <span class="feature__text">Logical properties</span>
+                                </div>
+                                <div class="feature">
+                                    <span class="feature__icon" aria-hidden="true">✓</span>
+                                    <span class="feature__text">Future-ready</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="demo-button" onclick="showModernFeatures()" type="button">
+                            Explore Features
+                        </button>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Interactive Demo Section -->
+            <section id="interactive" class="section is-hidden" aria-labelledby="interactive-heading">
+                <div class="interactive-demo">
+                    <h2 id="interactive-heading">Interactive CSS Grid & Flexbox Demo</h2>
+                    <p>Use the controls below to see how CSS Grid and Flexbox respond to different settings.</p>
+
+                    <div class="controls" role="group" aria-labelledby="grid-controls">
+                        <h3 id="grid-controls">Grid Controls:</h3>
+                        <button class="control-button active" onclick="changeGridCols(3)" type="button">3 Columns</button>
+                        <button class="control-button" onclick="changeGridCols(4)" type="button">4 Columns</button>
+                        <button class="control-button" onclick="changeGridCols(5)" type="button">5 Columns</button>
+                        <button class="control-button" onclick="changeGridCols('auto')" type="button">Auto-fit</button>
+                    </div>
+
+                    <div class="demo-grid" id="demo-grid">
+                        <div class="demo-item">Grid Item 1</div>
+                        <div class="demo-item">Grid Item 2</div>
+                        <div class="demo-item">Grid Item 3</div>
+                        <div class="demo-item">Grid Item 4</div>
+                        <div class="demo-item">Grid Item 5</div>
+                        <div class="demo-item">Grid Item 6</div>
+                    </div>
+
+                    <div class="flexbox-demo">
+                        <h3>Flexbox Demo</h3>
+                        <div class="controls" role="group" aria-labelledby="flex-controls">
+                            <h4 id="flex-controls">Flex Controls:</h4>
+                            <button class="control-button active" onclick="changeFlexDirection('row')" type="button">Row</button>
+                            <button class="control-button" onclick="changeFlexDirection('column')" type="button">Column</button>
+                            <button class="control-button" onclick="changeFlexJustify('space-between')" type="button">Space Between</button>
+                            <button class="control-button" onclick="changeFlexJustify('center')" type="button">Center</button>
+                            <button class="control-button" onclick="changeFlexJustify('space-around')" type="button">Space Around</button>
+                        </div>
+
+                        <div class="flex-container" id="flex-container">
+                            <div class="flex-item">Flex 1</div>
+                            <div class="flex-item">Flex 2</div>
+                            <div class="flex-item">Flex 3</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Modern Features Section -->
+            <section id="modern" class="section modern-features is-hidden" aria-labelledby="modern-heading">
+                <div class="interactive-demo">
+                    <h2 id="modern-heading">Modern CSS Features Demo</h2>
+
+                    <h3>Aspect Ratio Property</h3>
+                    <div class="aspect-ratio-demo">
+                        16:9 Aspect Ratio Box
+                    </div>
+
+                    <h3>Clamp() Function for Responsive Typography</h3>
+                    <div class="clamp-demo">
+                        Responsive Text Size
+                    </div>
+
+                    <h3>CSS Custom Properties in Action</h3>
+                    <div class="controls">
+                        <button class="control-button" onclick="setPrimaryColor('#4361ee')" type="button">Blue Theme</button>
+                        <button class="control-button" onclick="setPrimaryColor('#dc2626')" type="button">Red Theme</button>
+                        <button class="control-button" onclick="setPrimaryColor('#059669')" type="button">Green Theme</button>
+                        <button class="control-button" onclick="setPrimaryColor('#7c3aed')" type="button">Purple Theme</button>
+                    </div>
+
+                    <div class="demo-grid">
+                        <div class="demo-item">Theme Item 1</div>
+                        <div class="demo-item">Theme Item 2</div>
+                        <div class="demo-item">Theme Item 3</div>
+                        <div class="demo-item">Theme Item 4</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Assignment Information Section -->
+            <section id="assignment" class="section is-hidden" aria-labelledby="assignment-heading">
+                <div class="assignment-info">
+                    <h2 id="assignment-heading">Assignment Information</h2>
+                    <p>This page demonstrates my understanding of CSS for the CET138 Full Stack Development module assignment.</p>
+
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <h3>Student Details</h3>
+                            <p><strong>Name:</strong> Sagar Thapa</p>
+                            <p><strong>Student ID:</strong> BI95SS</p>
+                            <p><strong>University:</strong> University of Sunderland</p>
+                            <p><strong>College:</strong> ISMT College, Butwal</p>
+                        </div>
+
+                        <div class="info-item">
+                            <h3>Assignment Details</h3>
+                            <p><strong>Module:</strong> CET138 Full Stack Development</p>
+                            <p><strong>Tutor:</strong> Sandip Dhakal</p>
+                            <p><strong>Submission Date:</strong> 29 August 2025 (12:00 Midnight UK Time)</p>
+                            <p><strong>Weighting:</strong> 30% of module mark</p>
+                        </div>
+
+                        <div class="info-item">
+                            <h3>CSS Techniques Demonstrated</h3>
+                            <ul>
+                                <li>CSS Grid Layout</li>
+                                <li>Flexbox Layout</li>
+                                <li>Responsive Design</li>
+                                <li>CSS Animations & Transitions</li>
+                                <li>CSS Custom Properties (Variables)</li>
+                                <li>Modern CSS Features</li>
+                                <li>Accessibility Best Practices</li>
+                            </ul>
+                        </div>
+
+                        <div class="info-item">
+                            <h3>Browser Compatibility</h3>
+                            <p>This page has been tested and works correctly in:</p>
+                            <ul>
+                                <li>Chrome 90+</li>
+                                <li>Firefox 88+</li>
+                                <li>Safari 14+</li>
+                                <li>Edge 90+</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer Section (from index.html) -->
+    <footer role="contentinfo">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Navigation</h3>
+                <nav class="footer-nav">
+                    <ul class="footer-nav-list">
+                        <li class="footer-nav-item">
+                            <a href="./index.html" class="footer-nav-link"><i class="fas fa-home"></i> Home</a>
+                        </li>
+                        <li class="footer-nav-item">
+                            <a href="./fullstack.html" class="footer-nav-link"><i class="fas fa-layer-group"></i> Full Stack</a>
+                        </li>
+                        <li class="footer-nav-item">
+                            <a href="./html.html" class="footer-nav-link"><i class="fab fa-html5"></i> HTML</a>
+                        </li>
+                        <li class="footer-nav-item">
+                            <a href="./css.html" class="footer-nav-link"><i class="fab fa-css3-alt"></i> CSS</a>
+                        </li>
+                        <li class="footer-nav-item">
+                            <a href="./javascript.html" class="footer-nav-link"><i class="fab fa-js-square"></i> JavaScript</a>
+                        </li>
+                        <li class="footer-nav-item">
+                            <a href="./bootstrap.html" class="footer-nav-link"><i class="fab fa-bootstrap"></i> Bootstrap</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Submission Details</h3>
+                <p><strong>Student:</strong> Sagar Thapa</p>
+                <p><strong>Student ID:</strong> BI95SS</p>
+                <p><strong>Module:</strong> CET138 Full Stack Development</p>
+                <p><strong>University:</strong> University of Sunderland</p>
+                <p><strong>College:</strong> ISMT College, Butwal, Nepal</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Assignment Information</h3>
+                <p><strong>Tutor:</strong> Sandip Dhakal</p>
+                <p><strong>Submission Date:</strong> 29 August 2025</p>
+                <p><strong>Time:</strong> 12:00 Midnight (UK Time)</p>
+                <p><strong>Weighting:</strong> 30% of Module Mark</p>
+            </div>
+        </div>
+        
+        <!-- Social media links -->
+        <div class="social-links">
+            <a href="https://github.com/izzzthisssagar" class="social-link" aria-label="GitHub Profile" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
+            <a href="https://x.com/issssthisssagar" class="social-link" aria-label="X (Twitter) Profile" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.linkedin.com/in/sagar-thapa-4484a5337/" class="social-link" aria-label="LinkedIn Profile" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin-in"></i></a>
+            <a href="mailto:sagarthapa2058@gmail.com" class="social-link" aria-label="Email Contact"><i class="fas fa-envelope"></i></a>
+        </div>
+        
+        <!-- Footer copyright information -->
+        <div class="footer-bottom">
+            <p>&copy; 2025 CET138 Full Stack Development ePortfolio | All demonstrations hosted on University webspace</p>
+            <p>Designed and Developed by Sagar Thapa</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap and jQuery Scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Error handling function
+        function handleError(error, userMessage) {
+            console.error(error);
+            const errorElement = document.getElementById('error-message');
+            errorElement.textContent = userMessage || 'An error occurred. Please try again.';
+            errorElement.style.display = 'block';
+            
+            // Hide error after 5 seconds
+            setTimeout(() => {
+                errorElement.style.display = 'none';
+            }, 5000);
+        }
+
+        // Section navigation
+        function showSection(sectionName) {
+            try {
+                // Hide all sections
+                document.querySelectorAll('.section').forEach(section => {
+                    section.style.display = 'none';
+                });
+
+                // Remove active class from all buttons
+                document.querySelectorAll('.nav__button').forEach(button => {
+                    button.classList.remove('active');
+                });
+
+                // Show selected section and activate button
+                const section = document.getElementById(sectionName);
+                if (!section) {
+                    throw new Error(`Section ${sectionName} not found`);
+                }
+                
+                section.style.display = 'block';
+                
+                // Find the button that was clicked and activate it
+                const buttons = document.querySelectorAll('.nav__button');
+                for (let button of buttons) {
+                    if (button.textContent.trim().toLowerCase().includes(sectionName)) {
+                        button.classList.add('active');
+                        break;
+                    }
+                }
+
+                // Announce section change for screen readers
+                announceChange(`Now showing ${sectionName} section`);
+                
+                // Scroll to top of section
+                window.scrollTo({
+                    top: section.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            } catch (error) {
+                handleError(error, 'Unable to switch section. Please try again.');
+            }
+        }
+
+        // Initialize default section visibility
+        function initializeSections() {
+            // Show gallery section by default
+            const gallerySection = document.getElementById('gallery');
+            if (gallerySection) {
+                gallerySection.style.display = 'block';
+            }
+            
+            // Hide other sections initially
+            document.querySelectorAll('.section:not(#gallery)').forEach(section => {
+                section.style.display = 'none';
+            });
+        }
+
+        // Grid demonstration functions
+        function changeGridCols(cols) {
+            try {
+                const grid = document.getElementById('demo-grid');
+                if (!grid) {
+                    throw new Error('Grid element not found');
+                }
+
+                const buttons = event.target.parentElement.querySelectorAll('.control-button');
+                buttons.forEach(btn => btn.classList.remove('active'));
+                event.target.classList.add('active');
+
+                if (cols === 'auto') {
+                    grid.style.gridTemplateColumns = 'repeat(auto-fit, minmax(200px, 1fr))';
+                    announceChange('Grid set to auto-fit columns');
+                } else {
+                    grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+                    announceChange(`Grid set to ${cols} columns`);
+                }
+            } catch (error) {
+                handleError(error, 'Unable to change grid layout. Please try again.');
+            }
+        }
+
+        // Flexbox demonstration functions
+        function changeFlexDirection(direction) {
+            try {
+                const container = document.getElementById('flex-container');
+                if (!container) {
+                    throw new Error('Flex container not found');
+                }
+
+                container.style.flexDirection = direction;
+
+                // Update button states
+                const buttons = event.target.parentElement.querySelectorAll('.control-button');
+                buttons.forEach(btn => {
+                    if (btn.textContent.toLowerCase().includes(direction)) {
+                        btn.classList.add('active');
+                    } else if (btn.textContent.toLowerCase().includes('row') || btn.textContent.toLowerCase().includes('column')) {
+                        btn.classList.remove('active');
+                    }
+                });
+
+                announceChange(`Flex direction set to ${direction}`);
+            } catch (error) {
+                handleError(error, 'Unable to change flex direction. Please try again.');
+            }
+        }
+
+        function changeFlexJustify(justify) {
+            try {
+                const container = document.getElementById('flex-container');
+                if (!container) {
+                    throw new Error('Flex container not found');
+                }
+
+                container.style.justifyContent = justify;
+
+                // Update button states
+                const buttons = event.target.parentElement.querySelectorAll('.control-button');
+                buttons.forEach(btn => btn.classList.remove('active'));
+                event.target.classList.add('active');
+
+                announceChange(`Flex justify content set to ${justify}`);
+            } catch (error) {
+                handleError(error, 'Unable to change flex justification. Please try again.');
+            }
+        }
+
+        // Theme and color functions
+        function setPrimaryColor(color) {
+            try {
+                document.documentElement.style.setProperty('--primary', color);
+                // Also update the gradient
+                document.documentElement.style.setProperty('--gradient', `linear-gradient(135deg, ${color} 0%, var(--secondary) 100%)`);
+                document.documentElement.style.setProperty('--gradient-reverse', `linear-gradient(135deg, var(--secondary) 0%, ${color} 100%)`);
+
+                // Update button states
+                const buttons = event.target.parentElement.querySelectorAll('.control-button');
+                buttons.forEach(btn => btn.classList.remove('active'));
+                event.target.classList.add('active');
+
+                announceChange(`Theme color changed to ${color}`);
+            } catch (error) {
+                handleError(error, 'Unable to change theme color. Please try again.');
+            }
+        }
+
+        function toggleTheme() {
+            try {
+                const root = document.documentElement;
+                const isDark = root.style.getPropertyValue('--lighter') === '#1a202c';
+
+                if (isDark) {
+                    // Switch to light theme
+                    root.style.setProperty('--light', '#f8f9fa');
+                    root.style.setProperty('--lighter', '#ffffff');
+                    root.style.setProperty('--dark', '#212529');
+                    root.style.setProperty('--darker', '#121416');
+                    root.style.setProperty('--text-dark', '#2d3748');
+                    root.style.setProperty('--text-light', '#718096');
+                    event.target.textContent = 'Switch to Dark';
+                    announceChange('Switched to light theme');
+                } else {
+                    // Switch to dark theme
+                    root.style.setProperty('--light', '#2c3e50');
+                    root.style.setProperty('--lighter', '#1a202c');
+                    root.style.setProperty('--dark', '#f8f9fa');
+                    root.style.setProperty('--darker', '#e9ecef');
+                    root.style.setProperty('--text-dark', '#e2e8f0');
+                    root.style.setProperty('--text-light', '#a0aec0');
+                    event.target.textContent = 'Switch to Light';
+                    announceChange('Switched to dark theme');
+                }
+            } catch (error) {
+                handleError(error, 'Unable to toggle theme. Please try again.');
+            }
+        }
+
+        // Animation functions
+        function highlightGrid() {
+            try {
+                const gallery = document.querySelector('.gallery');
+                gallery.style.outline = '3px solid var(--accent)';
+                gallery.style.outlineOffset = '10px';
+
+                setTimeout(() => {
+                    gallery.style.outline = 'none';
+                }, 2000);
+
+                announceChange('Highlighting grid layout');
+            } catch (error) {
+                handleError(error, 'Unable to highlight grid. Please try again.');
+            }
+        }
+
+        function highlightFlex() {
+            try {
+                const nav = document.querySelector('.nav');
+                nav.style.outline = '3px solid var(--accent)';
+                nav.style.outlineOffset = '5px';
+
+                setTimeout(() => {
+                    nav.style.outline = 'none';
+                }, 2000);
+
+                announceChange('Highlighting flexbox layout');
+            } catch (error) {
+                handleError(error, 'Unable to highlight flexbox. Please try again.');
+            }
+        }
+
+        function triggerAnimations() {
+            try {
+                const cards = document.querySelectorAll('.card');
+                cards.forEach((card, index) => {
+                    setTimeout(() => {
+                        card.style.animation = 'pulse 0.6s ease-in-out';
+                        setTimeout(() => {
+                            card.style.animation = '';
+                        }, 600);
+                    }, index * 100);
+                });
+
+                announceChange('Triggering animations on all cards');
+            } catch (error) {
+                handleError(error, 'Unable to trigger animations. Please try again.');
+            }
+        }
+
+        function toggleViewport() {
+            try {
+                const container = document.querySelector('.container');
+                const isNarrow = container.style.maxWidth === '768px';
+
+                if (isNarrow) {
+                    container.style.maxWidth = '1200px';
+                    event.target.textContent = 'Test Mobile View';
+                    announceChange('Switched to desktop view');
+                } else {
+                    container.style.maxWidth = '768px';
+                    event.target.textContent = 'Reset to Desktop';
+                    announceChange('Switched to mobile view');
+                }
+            } catch (error) {
+                handleError(error, 'Unable to toggle viewport. Please try again.');
+            }
+        }
+
+        function showModernFeatures() {
+            try {
+                showSection('modern');
+                // Update navigation
+                document.querySelectorAll('.nav__button').forEach(btn => btn.classList.remove('active'));
+                document.querySelectorAll('.nav__button')[2].classList.add('active');
+            } catch (error) {
+                handleError(error, 'Unable to show modern features. Please try again.');
+            }
+        }
+
+        // Accessibility enhancements
+        function announceChange(message) {
+            try {
+                const announcement = document.createElement('div');
+                announcement.setAttribute('aria-live', 'polite');
+                announcement.setAttribute('aria-atomic', 'true');
+                announcement.className = 'sr-only';
+                announcement.textContent = message;
+
+                document.body.appendChild(announcement);
+
+                setTimeout(() => {
+                    document.body.removeChild(announcement);
+                }, 1000);
+            } catch (error) {
+                console.error('Error announcing change:', error);
+            }
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                // Add staggered animation to cards
+                const cards = document.querySelectorAll('.card');
+                cards.forEach((card, index) => {
+                    card.style.animationDelay = `${index * 0.1}s`;
+                });
+
+                // Keyboard accessibility
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Tab') {
+                        document.body.classList.add('keyboard-navigation');
+                    }
+                });
+
+                document.addEventListener('mousedown', function() {
+                    document.body.classList.remove('keyboard-navigation');
+                });
+
+                // Show assignment info by default if coming from portfolio
+                const urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.get('section') === 'assignment') {
+                    showSection('assignment');
+                } else {
+                    // Initialize default section visibility
+                    initializeSections();
+                }
+
+                // Mobile menu toggle
+                const hamburger = document.querySelector('.hamburger');
+                const navMenu = document.querySelector('.nav-menu');
+                
+                if (hamburger && navMenu) {
+                    hamburger.addEventListener('click', function() {
+                        navMenu.classList.toggle('active');
+                        hamburger.classList.toggle('active');
+                        hamburger.innerHTML = navMenu.classList.contains('active') ? 
+                            '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+                    });
+                }
+                
+                // Close mobile menu when clicking on a nav link
+                const navLinks = document.querySelectorAll('.nav-link');
+                navLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        if (navMenu.classList.contains('active')) {
+                            navMenu.classList.remove('active');
+                            hamburger.classList.remove('active');
+                            hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+                        }
+                    });
+                });
+
+                // Back to top button functionality
+                const backToTopButton = document.querySelector('.back-to-top');
+                window.addEventListener('scroll', () => {
+                    if (window.pageYOffset > 300) {
+                        backToTopButton.style.display = 'block';
+                    } else {
+                        backToTopButton.style.display = 'none';
+                    }
+                    
+                    // Update progress bar
+                    const winHeight = window.innerHeight;
+                    const docHeight = document.documentElement.scrollHeight;
+                    const scrolled = window.pageYOffset;
+                    const progress = (scrolled / (docHeight - winHeight)) * 100;
+                    document.getElementById('progressBar').style.width = progress + '%';
+                });
+                
+                backToTopButton.addEventListener('click', () => {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
+
+                console.log('Page initialized successfully');
+            } catch (error) {
+                handleError(error, 'Page initialization failed. Some features may not work correctly.');
+            }
+        });
+
+        // Performance monitoring
+        if ('performance' in window) {
+            window.addEventListener('load', function() {
+                const loadTime = performance.now();
+                console.log(`Page loaded in ${loadTime.toFixed(2)}ms`);
+                
+                // Send performance data to analytics if available
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'timing_complete', {
+                        'name': 'load',
+                        'value': Math.round(loadTime),
+                        'event_category': 'Page Load'
+                    });
+                }
+            });
+        }
+    </script>
+    
+    <!-- Back to top button -->
+    <button class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <!-- Accessibility notification toast -->
+    <div class="notification" id="accessibilityNotification">
+        <i class="fas fa-check-circle"></i> Accessibility features enabled for better navigation
+    </div>
+    
+    <!-- Shared Scripts -->
+    <script src="shared-scripts.js"></script>
+
+</body>
+</html>
